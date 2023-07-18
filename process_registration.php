@@ -1,10 +1,7 @@
 <?php
-// Database connection
-require_once 'db_connect.php';
+require_once 'db_connect.php'; // Add this line at the top of the file
 
-if ($db->connect_error) {
-    die("Connection failed: " . $db->connect_error);
-}
+$db = connect_db(); // Use the connect_db() function from db_connect.php
 
 $username = $_POST['username'];
 $email = $_POST['email'];
@@ -39,4 +36,3 @@ if ($result->num_rows > 0) {
         die("Registration failed");
     }
 }
-?>

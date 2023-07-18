@@ -1,10 +1,8 @@
 <?php
-// Database connection
-require_once 'db_connect.php';
 
-if ($db->connect_error) {
-    die("Connection failed: " . $db->connect_error);
-}
+require_once 'db_connect.php'; // Add this line at the top of the file
+
+$db = connect_db(); // Use the connect_db() function from db_connect.php
 
 $username = $_POST['username'];
 $password = $_POST['password'];
