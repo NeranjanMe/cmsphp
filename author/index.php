@@ -45,32 +45,9 @@ $draft_posts = $row['draft_posts'];
 
 include '../include/author_header.php'; ?>
 
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                            </a>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Post
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Category
-                            </a>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
+     <?php include '../include/author_slidenav_head.php'; ?>
+
+                    
                         <h1 class="mt-4">Dashboard</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
@@ -129,8 +106,7 @@ include '../include/author_header.php'; ?>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </main>
-            </div>
-        </div>
+                    
+
+          <?php include '../include/author_slidenav_down.php'; ?>
 <?php include '../include/author_footer.php'; ?>               
