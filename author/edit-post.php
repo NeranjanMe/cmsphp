@@ -29,6 +29,22 @@ if (isset($_GET['id'])) {
     die("Invalid request.");
 }
 
+// Fetch all categories
+$stmt = $db->prepare("SELECT * FROM categories ORDER BY id DESC");
+$stmt->execute();
+$result = $stmt->get_result();
+$categories = $result->fetch_all(MYSQLI_ASSOC);
+
+// Fetch post details for editing
+if (isset($_GET['id'])) {
+    $stmt = $db->prepare("SELECT * FROM posts WHERE id = ?");
+    $stmt->bind_param('i', $_GET['id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $post = $result->fetch_assoc();
+}
+
+
 include '../include/author_header.php';
 ?>
 
@@ -93,6 +109,8 @@ include '../include/author_header.php';
                     <option value="Draft" <?php echo $post['status'] === 'Draft' ? 'selected' : '' ?>>Draft</option>
                 </select>
             </div>
+
+
             <button type="submit" class="btn btn-primary mt-4">Update Post</button>
         </form>
 
