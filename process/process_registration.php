@@ -1,5 +1,5 @@
 <?php
-require_once 'database/db_connect.php'; // Add this line at the top of the file
+require_once '../database/db_connect.php'; // Add this line at the top of the file
 
 $db = connect_db(); // Use the connect_db() function from db_connect.php
 
@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
 
     if ($stmt->affected_rows > 0) {
         // Success! The user was registered. You might want to start a session here or send a confirmation email.
-        header("Location: login.php"); // Redirect to the login page or to a "Registration successful" page
+        header("Location: ../login.php"); // Redirect to the login page or to a "Registration successful" page
     } else {
         // Error! The registration failed. Handle this error appropriately for your application.
         die("Registration failed");
