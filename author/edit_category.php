@@ -15,18 +15,12 @@ $stmt->execute();
 $result = $stmt->get_result();
 $categories = $result->fetch_all(MYSQLI_ASSOC);
 
-// Initialize $edit_category as null
-$edit_category = null;
-
-// Fetch category details for editing
-if (isset($_GET['edit_id'])) {
-    $stmt = $db->prepare("SELECT * FROM categories WHERE id = ?");
-    $stmt->bind_param('i', $_GET['edit_id']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $edit_category = $result->fetch_assoc();
-}
-
+// Get the category details
+$stmt = $db->prepare("SELECT * FROM categories WHERE id = ?");
+$stmt->bind_param('i', $_GET['id']);
+$stmt->execute();
+$result = $stmt->get_result();
+$category = $result->fetch_assoc();
 
 include '../include/author_header.php';
 ?>
@@ -39,36 +33,17 @@ include '../include/author_header.php';
                             <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
                             <li class="breadcrumb-item active">Category</li>
                         </ol>
-                        <div class="card mb-4 mt-5">
+                        <div class="card mb-4">
                             <div class="card-body">
-
-                            <!-- Category form -->
-                            <?php if ($edit_category): ?>
-                                    <!-- Edit category form -->
-                                    <h2 class="card-title">Edit Category</h2>
-                                    <form action="../process/process_category.php" method="post">
-                                        <input type="hidden" name="id" value="<?php echo $edit_category['id']; ?>">
-                                        <div class="form-group">
-                                            <label for="name">Category Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" value="<?php echo $edit_category['name']; ?>" required>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary mt-4">Save Changes</button>
-                                        <a href="category.php" class="btn btn-primary mt-4">Cancel</a>
-                                    </form>
-                                <?php else: ?>
-                                    <!-- Add new category form -->
-                                    <h2 class="card-title">Add New Category</h2>
-                                    <form action="../process/process_category.php" method="post">
-                                        <div class="form-group">
-                                            <label for="name">New Category Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" required>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary mt-4">Add New Category</button>
-                                    </form>
-                                <?php endif; ?>
-
-
-                                
+                                <!-- Add new category form -->
+                                <form action="../process/process_category.php" method="post">
+                                    <input type="hidden" name="id" value="<?php echo $category['id']; ?>">
+                                    <div class="form-group">
+                                        <label for="name">Category Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" value="<?php echo $category['name']; ?>" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </form>
                             </div>
                         </div>
 
@@ -100,7 +75,7 @@ include '../include/author_header.php';
                                                     <td><?php echo $category['id']; ?></td>
                                                     <td><?php echo $category['name']; ?></td>
                                                     <td>
-                                                        <a href="category.php?edit_id=<?php echo $category['id']; ?>" class="btn btn-primary">Edit</a>
+                                                        <a href="edit_category.php?id=<?php echo $category['id']; ?>" class="btn btn-primary">Edit</a>
                                                         <a href="../process/process_category.php?action=delete&id=<?php echo $category['id']; ?>" class="btn btn-danger">Delete</a>
                                                     </td>
                                                 </tr>

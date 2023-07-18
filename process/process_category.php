@@ -10,7 +10,25 @@ if(!isset($_SESSION["username"])){
 
 $db = connect_db();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+    // Update existing category
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+
+    if (empty($name)) {
+        die("Category name is required");
+    }
+
+    $stmt = $db->prepare("UPDATE categories SET name = ? WHERE id = ?");
+    $stmt->bind_param('si', $name, $id);
+    $stmt->execute();
+
+    if ($stmt->affected_rows > 0) {
+        header("Location: ../author/category.php"); // Redirect to the category page
+    } else {
+        die("Error updating category");
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Add new category
     $name = $_POST['name'];
 
