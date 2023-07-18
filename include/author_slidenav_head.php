@@ -17,10 +17,23 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Category
                             </a>
+
                             <div class="sb-sidenav-menu-heading">Generate</div>
+                            
+
                             <a class="nav-link" href="generate-blog-topic-ideas.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Blog Topic Ideas
+                            </a>
+                            
+                            <a class="nav-link" href="generate-blog-outline.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Blog Outline
+                            </a>
+
+                            <a class="nav-link" href="generate-blog-content.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Blog Content
                             </a>
 
                         </div>

@@ -24,8 +24,8 @@ include '../include/author_header.php';
             <div class="card-body">
 
             <form id="generate-content-form">
-                <label for="keyword">Keyword:</label><br>
-                <textarea id="keyword" name="keyword" class="form-control" rows="4" cols="50" required></textarea>
+                <label for="keyword"> Enter your keyword(s):</label><br>
+                <textarea id="keyword" name="keyword" class="form-control" rows="3" cols="50" required></textarea>
                 <input type="submit" value="Generate" class="btn btn-primary mt-2">
             </form>
 
@@ -36,19 +36,22 @@ include '../include/author_header.php';
 
         <div class="card mb-4 mt-5">
             <div class="card-body">
-            <textarea id="generated-content" class="form-control" rows="4" cols="50"></textarea>
-            <button id="copy-button" class="btn btn-primary mt-2">Copy to Clipboard</button>
-            <!-- Spinner -->
-            <div id="spinner" style="display: none;">
-                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-            </div>
+                <div id="editor" style="height: 300px;"></div>
+                <button id="copy-button" class="btn btn-primary mt-2">Copy to Clipboard</button>
+                <!-- Spinner -->
+                <div id="spinner" style="display: none;">
+                    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                </div>
             </div>
         </div>
 
 
+        <script>
+var quill = new Quill('#editor', {
+    theme: 'snow'
+});
 
-<script>
-    $(document).ready(function(){
+$(document).ready(function(){
     $("#generate-content-form").submit(function(e){
         e.preventDefault();
 
@@ -60,7 +63,9 @@ include '../include/author_header.php';
         data: {keyword: $('#keyword').val()},
         success: function(data) {
             var response = JSON.parse(data);
-            $('#generated-content').val(response.content);
+            quill.setContents([
+                { insert: response.content }
+            ]);
             $('#spinner').hide();
         },
         error: function() {
@@ -72,19 +77,17 @@ include '../include/author_header.php';
 
     $("#copy-button").click(function(){
         /* Get the text field */
-        var copyText = document.getElementById("generated-content");
+        var copyText = quill.getText();
 
-        /* Select the text field */
-        copyText.select();
-        copyText.setSelectionRange(0, 99999); /* For mobile devices */
-
-        /* Copy the text inside the text field */
-        document.execCommand("copy");
-
-        /* Alert the copied text */
-        alert("Copied the text: " + copyText.value);
+        /* Copy the text to the clipboard */
+        navigator.clipboard.writeText(copyText).then(function() {
+            /* Alert the copied text */
+            alert("Copied the text: " + copyText);
+        }, function(err) {
+            console.error('Async: Could not copy text: ', err);
+        });
     });
-    });
+});
 </script>
 
 <style>
