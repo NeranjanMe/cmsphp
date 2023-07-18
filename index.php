@@ -1,5 +1,5 @@
 <?php
-require_once 'db_connect.php';
+require_once 'database/db_connect.php';
 $db = connect_db();
 
 $stmt = $db->prepare("SELECT * FROM posts ORDER BY created_at DESC");
@@ -8,7 +8,7 @@ $result = $stmt->get_result();
 $posts = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
-<?php include 'header.php'; ?>
+<?php include 'include/header.php'; ?>
 
 <div class="container">
     <div class="row">
@@ -22,4 +22,4 @@ $posts = $result->fetch_all(MYSQLI_ASSOC);
     </div>
 </div>
 
-<?php include 'footer.php'; ?>
+<?php include 'include/footer.php'; ?>

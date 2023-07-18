@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Register</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
-<body>
-  <header>
-    <!-- Add your header here -->
-  </header>
+<?php include 'include/header.php'; ?>
 
   <div class="container">
     <div class="row justify-content-md-center">
@@ -32,12 +23,4 @@
     </div>
   </div>
 
-  <footer>
-    <!-- Add your footer here -->
-  </footer>
-
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</body>
-</html>
+<?php include 'include/footer.php'; ?>
