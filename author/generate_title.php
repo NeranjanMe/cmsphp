@@ -30,7 +30,7 @@ $(document).ready(function(){
     $('#spinner').show();
 
     $.ajax({
-      url: 'generate_content.php',
+      url: '../generate/generate_content.php',
       type: 'post',
       data: {keyword: $('#keyword').val()},
       success: function(data) {
