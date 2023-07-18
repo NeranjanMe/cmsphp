@@ -24,7 +24,7 @@ if ($user && password_verify($password, $user->password)) {
     // Success! User is logged in. You might want to start a session here.
     session_start();
     $_SESSION['username'] = $username; // You can save the username to the session
-    header("Location: author/dashboard.php"); // Redirect to a logged in page like dashboard.php
+    header("Location: author/index.php"); // Redirect to a logged in page like dashboard.php
 } else {
     // Error! Authentication failed. Handle this error appropriately for your application.
     die("Invalid username or password");
