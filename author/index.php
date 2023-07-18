@@ -61,7 +61,7 @@ include '../include/author_header.php'; ?>
                                         <p>Total Posts</p>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="post.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -74,7 +74,7 @@ include '../include/author_header.php'; ?>
                                         <p>Total Categories</p>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="category.php">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
