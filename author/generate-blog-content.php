@@ -27,9 +27,6 @@ include '../include/author_header.php';
                 <label for="topic">Enter your blog topic:</label><br>
                 <textarea id="topic" name="topic" class="form-control" rows="3" cols="50" required></textarea>
 
-                <!-- <label for="topic">Enter your blog outline here.:</label><br>
-                <textarea id="outline" name="outline" class="form-control" rows="3" cols="50" ></textarea> -->
-
                 <input type="submit" value="Generate" class="btn btn-primary mt-2">
             </form>
 
@@ -66,7 +63,6 @@ $(document).ready(function(){
         type: 'post',
         data: {
             topic: $('#topic').val(),
-            outline: $('#outline').val()
         },
         success: function(data) {
             var response = JSON.parse(data);
@@ -95,9 +91,14 @@ $(document).ready(function(){
         });
     });
 });
+
+
+
 </script>
 
 <style>
+
+
 .lds-ring {
   display: inline-block;
   position: relative;

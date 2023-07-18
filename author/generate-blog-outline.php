@@ -15,10 +15,10 @@ include '../include/author_header.php';
 
 <?php include '../include/author_slidenav_head.php'; ?>
 
-        <h1 class="mt-4">Blog Topic Ideas</h1>
+        <h1 class="mt-4">Blog Outline</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-            <li class="breadcrumb-item active">Blog Topic Ideas</li>
+            <li class="breadcrumb-item active">Blog Outline</li>
         </ol>
         <div class="card mb-4 mt-5">
             <div class="card-body">

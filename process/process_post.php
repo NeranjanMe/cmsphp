@@ -10,25 +10,50 @@ if(!isset($_SESSION["username"])){
 
 $db = connect_db();
 
-$title = $_POST['title'];
-$content = $_POST['content'];
-$category = $_POST['category'];
-$author = $_SESSION['username'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Add new post
+    $title = $_POST['title'];
+    $category = $_POST['category'];
+    $tags = $_POST['tags'];
+    $body = $_POST['body'];
+    $language = $_POST['language'];
+    $meta_title = $_POST['meta_title'];
+    $meta_description = $_POST['meta_description'];
+    $meta_keyword = $_POST['meta_keyword'];
+    $status = $_POST['status'];
+    $author = $_SESSION["username"]; // The author of the post is the currently logged in user
 
-// Input validation
-if (empty($title) || empty($content) || empty($category)) {
-    die("Title, content and category are required");
-}
+    if (empty($title) || empty($category) || empty($body) || empty($language) || empty($status)) {
+        die("Required fields are empty");
+    }
 
-// Prepared statement to prevent SQL Injection
-$stmt = $db->prepare("INSERT INTO posts (title, content, category_id, author) VALUES (?, ?, ?, ?)");
-$stmt->bind_param('ssis', $title, $content, $category, $author);
-$stmt->execute();
+    $stmt = $db->prepare("INSERT INTO posts (title, category, tags, body, language, meta_title, meta_description, meta_keyword, status, author) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param('ssssssssss', $title, $category, $tags, $body, $language, $meta_title, $meta_description, $meta_keyword, $status, $author);
+    $stmt->execute();
 
-if ($stmt->affected_rows > 0) {
-    // Success! The post was created.
-    header("Location: index.php"); // Redirect to the dashboard
+    if ($stmt->affected_rows > 0) {
+        header("Location: ../author/post.php"); // Redirect to the posts page
+    } else {
+        die("Error adding post");
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'delete') {
+    // Delete a post
+    $id = $_GET['id'];
+
+    if (empty($id)) {
+        die("Post ID is required");
+    }
+
+    $stmt = $db->prepare("DELETE FROM posts WHERE id = ?");
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+
+    if ($stmt->affected_rows > 0) {
+        header("Location: ../author/post.php"); // Redirect to the posts page
+    } else {
+        die("Error deleting post");
+    }
 } else {
-    // Error! The creation failed. Handle this error appropriately for your application.
-    die("Post creation failed");
+    die("Invalid request");
 }
+?>

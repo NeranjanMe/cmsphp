@@ -8,19 +8,23 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <div class="sb-sidenav-menu-heading">Post</div>
                             <a class="nav-link" href="post.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Post
+                                View Post
                             </a>
+                            <a class="nav-link" href="new-post.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                New Post
+                            </a>
+                                
+                            <div class="sb-sidenav-menu-heading">Othrs</div>
                             <a class="nav-link" href="category.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Category
                             </a>
 
-                            <div class="sb-sidenav-menu-heading">Generate</div>
-                            
-
+                            <div class="sb-sidenav-menu-heading">AI Powered</div>
                             <a class="nav-link" href="generate-blog-topic-ideas.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Blog Topic Ideas

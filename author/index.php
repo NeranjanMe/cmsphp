@@ -28,7 +28,7 @@ $row = $result->fetch_assoc();
 $total_categories = $row['total_categories'];
 
 // Get number of published posts by the user
-$stmt = $db->prepare("SELECT COUNT(*) as published_posts FROM posts WHERE author = ? AND status = 'published'");
+$stmt = $db->prepare("SELECT COUNT(*) as published_posts FROM posts WHERE author = ? AND status = 'publish'");
 $stmt->bind_param('s', $username);
 $stmt->execute();
 $result = $stmt->get_result();

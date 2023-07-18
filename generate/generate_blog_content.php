@@ -1,7 +1,6 @@
 <?php
 
 $topic = $_POST['topic'];
-// $outline = $_POST['outline'];
 
 $api_key = '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';
 
