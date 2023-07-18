@@ -29,4 +29,5 @@ if ($user && password_verify($password, $user->password)) {
     // Error! Authentication failed. Handle this error appropriately for your application.
     die("Invalid username or password");
 }
+
 ?>
