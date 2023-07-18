@@ -1,0 +1,140 @@
+<?php
+session_start();
+
+// Check if the user is logged in, otherwise redirect to login page
+if(!isset($_SESSION["username"])){
+    header("Location: ../login.php");
+    exit;
+}
+
+require_once '../database/db_connect.php';
+$db = connect_db();
+
+include '../include/author_header.php';
+?>
+
+<?php include '../include/author_slidenav_head.php'; ?>
+
+        <h1 class="mt-4">Blog Topic Ideas</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+            <li class="breadcrumb-item active">Blog Topic Ideas</li>
+        </ol>
+        <div class="card mb-4 mt-5">
+            <div class="card-body">
+
+            <form id="generate-content-form">
+                <label for="keyword">Keyword:</label><br>
+                <textarea id="keyword" name="keyword" class="form-control" rows="4" cols="50" required></textarea>
+                <input type="submit" value="Generate" class="btn btn-primary mt-2">
+            </form>
+
+
+                
+            </div>
+        </div>
+
+        <div class="card mb-4 mt-5">
+            <div class="card-body">
+            <textarea id="generated-content" class="form-control" rows="4" cols="50"></textarea>
+            <button id="copy-button" class="btn btn-primary mt-2">Copy to Clipboard</button>
+            <!-- Spinner -->
+            <div id="spinner" style="display: none;">
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+            </div>
+        </div>
+
+
+
+<script>
+    $(document).ready(function(){
+    $("#generate-content-form").submit(function(e){
+        e.preventDefault();
+
+        $('#spinner').show();
+
+        $.ajax({
+        url: '../generate/generate_blog_topic_ideas.php',
+        type: 'post',
+        data: {keyword: $('#keyword').val()},
+        success: function(data) {
+            var response = JSON.parse(data);
+            $('#generated-content').val(response.content);
+            $('#spinner').hide();
+        },
+        error: function() {
+            alert('Failed to generate content');
+            $('#spinner').hide();
+        }
+        });
+    });
+
+    $("#copy-button").click(function(){
+        /* Get the text field */
+        var copyText = document.getElementById("generated-content");
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+
+        /* Alert the copied text */
+        alert("Copied the text: " + copyText.value);
+    });
+    });
+</script>
+
+<style>
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #000;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #000 transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
+                                
+
+<?php include '../include/author_slidenav_down.php'; ?>
+
+<script>
+$(document).ready(function() {
+    $('#datatablesSimple').DataTable();
+});
+</script>
+
+
+<?php include '../include/author_footer.php'; ?>
+
+
