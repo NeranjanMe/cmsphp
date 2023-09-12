@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        header("Location: ../author/category.php"); // Redirect to the category page
+        header("Location: ../admin/category.php"); // Redirect to the category page
     } else {
         die("Error adding category");
     }
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        header("Location: ../author/category.php"); // Redirect to the category page
+        header("Location: ../admin/category.php"); // Redirect to the category page
     } else {
         die("Error deleting category");
     }

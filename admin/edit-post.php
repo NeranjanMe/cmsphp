@@ -74,16 +74,27 @@ include '../include/admin_header.php';
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="form-group mt-4">
-                <label for="tags">Tags</label>
-                <input type="text" class="form-control mt-2" id="tags" name="tags" value="<?php echo $post['tags']; ?>">
-            </div>
-            
+
+
             <div class="form-group mt-4">
                 <label for="body">Content Body</label>
                 <div id="quillEditor" style="height:500px;"></div>
-                <textarea id="body" name="body" style="display:none" required><?php echo $post['body']; ?></textarea>
+                <textarea id="body" name="body" style="display:none" required><?php echo htmlspecialchars($post['body'], ENT_QUOTES, 'UTF-8'); ?></textarea>
             </div>
+
+            <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+            <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+            <script>
+                if(!window.quill) {
+                    var quill = new Quill('#quillEditor', {
+                        theme: 'snow'
+                    });
+
+                    var bodyContent = document.querySelector('#body').value;
+                    quill.clipboard.dangerouslyPasteHTML(bodyContent);
+                }
+            </script>
 
             <div class="form-group mt-4">
                 <label for="language">Language</label>
