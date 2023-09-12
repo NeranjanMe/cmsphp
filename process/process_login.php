@@ -24,7 +24,7 @@ if ($user && password_verify($password, $user->password)) {
     // Success! User is logged in.
     session_start();
     $_SESSION['username'] = $username; 
-    header("Location: ../author/index.php");
+    header("Location: ../admin/index.php");
     exit;
 } else {
     // Error! Authentication failed.

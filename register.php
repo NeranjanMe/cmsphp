@@ -23,6 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Add your validations for step 1 here
         // If validation passes:
         $_SESSION['step1_data'] = [
+            'firstName' => $_POST['firstName'],
+            'lastName' => $_POST['lastName'],
+            'surname' => $_POST['surname'],
             'username' => $_POST['username'],
             'email' => $_POST['email'],
             'password' => $_POST['password'],
@@ -31,6 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['current_step'] = $current_step;
     }
 }
+
+$current_step = isset($_GET['step']) ? (int)$_GET['step'] : ($_SESSION['current_step'] ?? 1);
+$_SESSION['current_step'] = $current_step;
 
 ?>
 
@@ -46,6 +52,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <form action="<?php echo $current_step == 2 ? 'process/process_registration.php' : ''; ?>" method="post" id="registerForm">
             <?php if ($current_step == 1): ?>
                 <!-- Step 1 Fields -->
+                <div class="form-group mt-3">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" class="form-control mt-1" id="firstName" placeholder="Enter first name" name="firstName" value="<?php echo htmlspecialchars($input_values['firstName'] ?? ''); ?>" required>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" class="form-control mt-1" id="lastName" placeholder="Enter last name" name="lastName" value="<?php echo htmlspecialchars($input_values['lastName'] ?? ''); ?>" required>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="surname">Surname:</label>
+                    <input type="text" class="form-control mt-1" id="surname" placeholder="Enter surname" name="surname" value="<?php echo htmlspecialchars($input_values['surname'] ?? ''); ?>" required>
+                </div>
+
                 <div class="form-group mt-3">
                     <label for="username">Username:</label>
                     <input type="text" class="form-control mt-1" id="username" placeholder="Enter username" name="username" value="<?php echo htmlspecialchars($usernameValue); ?>" required>
@@ -100,6 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                <button type="button" class="btn btn-secondary mt-3" onclick="window.location.href='register.php?step=1'">Back</button>
                 <?php endif; ?>
             </form>
         </div>

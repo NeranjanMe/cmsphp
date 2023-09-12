@@ -14,6 +14,9 @@ $db = connect_db();
 $username = $_SESSION['step1_data']['username'];
 $email = $_SESSION['step1_data']['email'];
 $password = $_SESSION['step1_data']['password'];
+$first_name = $_SESSION['step1_data']['firstName'];
+$second_name = $_SESSION['step1_data']['lastName'];
+$surname = $_SESSION['step1_data']['surname'];
 
 // Get security questions and answers from POST request
 $security_question1 = $_POST['security_question1'];
@@ -38,25 +41,27 @@ if ($result->num_rows > 0) {
     ];
     header("Location: ../register.php");
     exit;
-}  else {
+}  
+else {
     // Hash the password and insert the new user into the database
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     
-    // Update the SQL query to include security questions and answers
-    $stmt = $db->prepare("INSERT INTO users (username, email, password, security_question1, security_answer1, security_question2, security_answer2, security_question3, security_answer3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    
-    $stmt->bind_param('sssssssss', $username, $email, $hashed_password, $security_question1, $security_answer1, $security_question2, $security_answer2, $security_question3, $security_answer3);
+    // Update the SQL query to include security questions and answers, and set role to 'admin'
+    $stmt = $db->prepare("INSERT INTO users (username, email, password, role, first_name, second_name, surname, security_question1, security_answer1, security_question2, security_answer2, security_question3, security_answer3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+    $role = 'admin';
+    $stmt->bind_param('sssssssssssss', $username, $email, $hashed_password, $role, $first_name, $second_name, $surname, $security_question1, $security_answer1, $security_question2, $security_answer2, $security_question3, $security_answer3);
     $stmt->execute();
 
+
     if ($stmt->affected_rows > 0) {
-        // Success! The user was registered.
-        $_SESSION['success'] = "Registration successful! You can now log in.";
+        // Success! The user was registered as admin.
+        $_SESSION['success'] = "Registration successful! You can now log in as an admin.";
         header("Location: ../login.php"); // Redirect to the login page
         exit;
     } else {
         // Error! The registration failed.
         die("Registration failed");
     }
-    
 }
 ?>
