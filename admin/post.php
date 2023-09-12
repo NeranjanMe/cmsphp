@@ -40,31 +40,26 @@ include '../include/admin_header.php';
                         <table id="datatablesSimple" class="table table-striped">
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Title</th>
                                     <th>Category</th>
-                                    <th>Tags</th>
                                     <th>Language</th>
-                                    <th>Meta Title</th>
-                                    <th>Meta Description</th>
-                                    <th>Meta Keyword</th>
-                                    <th>Status</th>
                                     <th>Author</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($posts as $post): ?>
                                     <tr>
+                                        <td><?= htmlspecialchars($post['id']) ?></td>
                                         <td><?= htmlspecialchars($post['title']) ?></td>
                                         <td><?= htmlspecialchars($post['category']) ?></td>
-                                        <td><?= htmlspecialchars($post['tags']) ?></td>
                                         <td><?= htmlspecialchars($post['language']) ?></td>
-                                        <td><?= htmlspecialchars($post['meta_title']) ?></td>
-                                        <td><?= htmlspecialchars($post['meta_description']) ?></td>
-                                        <td><?= htmlspecialchars($post['meta_keyword']) ?></td>
-                                        <td><?= htmlspecialchars($post['status']) ?></td>
                                         <td><?= htmlspecialchars($post['author']) ?></td>
+                                        <td><?= htmlspecialchars($post['status']) ?></td>
                                         <td>
+                                        <a href="../post.php?permalink=<?= $post['permalink'] ?>" class="btn btn-primary" target="_blank">View</a>
                                         <a href="edit-post.php?id=<?= $post['id'] ?>" class="btn btn-info">Edit</a>
                                         <a href="../process/process_post.php?action=delete&id=<?= $post['id'] ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?')">Delete</a>
                                         </td>

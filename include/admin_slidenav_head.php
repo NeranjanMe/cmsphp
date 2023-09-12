@@ -11,11 +11,7 @@
                             <div class="sb-sidenav-menu-heading">Post</div>
                             <a class="nav-link" href="post.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                View Post
-                            </a>
-                            <a class="nav-link" href="new-post.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                New Post
+                                Post Manage
                             </a>
 
                                 

@@ -20,16 +20,18 @@ $posts = $result->fetch_all(MYSQLI_ASSOC);
             </div>
         </header>
 
-<div class="container">
-    <div class="row">
-        <?php foreach ($posts as $post): ?>
-            <div class="col-md-4">
-                <h2><?php echo $post['title']; ?></h2>
-                <p><?php echo $post['content']; ?></p>
-                <a href="single_post.php?id=<?php echo $post['id']; ?>" class="btn btn-primary">Read More</a>
+        <div class="container">
+            <div class="row">
+                <?php foreach ($posts as $post): ?>
+                    <div class="col-md-4">
+                        <h2><?php echo $post['title']; ?></h2>
+                        <p><?php echo substr($post['body'], 0, 200); ?><?php if (strlen($post['body']) > 200) echo '...'; ?></p>
+                        <a href="post.php?permalink=<?php echo $post['permalink']; ?>" class="btn btn-primary">Read More</a>
+
+                    </div>
+                <?php endforeach; ?>
             </div>
-        <?php endforeach; ?>
-    </div>
-</div>
+        </div>
+
 
 <?php include 'include/footer.php'; ?>

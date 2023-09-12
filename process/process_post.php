@@ -22,17 +22,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $meta_keyword = $_POST['meta_keyword'];
     $status = $_POST['status'];
     $author = $_SESSION["username"]; // The author of the post is the currently logged in user
+    $permalink = $_POST['permalink'];
 
-    if (empty($title) || empty($category) || empty($body) || empty($language) || empty($status)) {
+    if (empty($title) || empty($category) || empty($body) || empty($language) || empty($status) || empty($permalink)) {
         die("Required fields are empty");
     }
 
-    $stmt = $db->prepare("INSERT INTO posts (title, category, tags, body, language, meta_title, meta_description, meta_keyword, status, author) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param('ssssssssss', $title, $category, $tags, $body, $language, $meta_title, $meta_description, $meta_keyword, $status, $author);
+    $stmt = $db->prepare("INSERT INTO posts (title, category, tags, body, language, meta_title, meta_description, meta_keyword, status, author,permalink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
+    $stmt->bind_param('sssssssssss', $title, $category, $tags, $body, $language, $meta_title, $meta_description, $meta_keyword, $status, $author, $permalink);
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        header("Location: ../author/post.php"); // Redirect to the posts page
+        header("Location: ../admin/post.php"); // Redirect to the posts page
     } else {
         die("Error adding post");
     }
@@ -49,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        header("Location: ../author/post.php"); // Redirect to the posts page
+        header("Location: ../admin/post.php"); // Redirect to the posts page
     } else {
         die("Error deleting post");
     }

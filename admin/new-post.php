@@ -21,6 +21,37 @@ include '../include/admin_header.php';
 
 <?php include '../include/admin_slidenav_head.php'; ?>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    var permalinkEdited = false;
+
+    $(document).ready(function() {
+        $('#title').on('input', function() {
+            if (!permalinkEdited) {
+                var title = $(this).val();
+                var slug = createWordpressLikeSlug(title);
+                $('#permalink').val(slug);
+            }
+        });
+
+        $('#permalink').on('input', function() {
+            permalinkEdited = true;
+        });
+    });
+
+    function createWordpressLikeSlug(str) {
+        return str
+            .toLowerCase()
+            .replace(/\s+/g, '-')
+            .replace(/&/g, '-and-')
+            .replace(/[^\w\-]+/g, '')
+            .replace(/\-\-+/g, '-')
+            .replace(/^-+/, '')
+            .replace(/-+$/, '');
+    }
+</script>
+
 <h1 class="mt-4">New Post</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
@@ -31,10 +62,16 @@ include '../include/admin_header.php';
         <!-- New post form -->
         <h2 class="card-title">Add New Post</h2>
         <form action="../process/process_post.php" method="post">
-            <div class="form-group mt-4">
-                <label for="title">Title</label>
-                <input type="text" class="form-control mt-2" id="title" name="title" required>
-            </div>
+
+        <div class="form-group mt-4">
+            <label for="title">Title</label>
+            <input type="text" class="form-control mt-2" id="title" name="title" required>
+        </div>
+        <div class="form-group mt-4">
+            <label for="permalink">Permalink</label>
+            <input type="text" class="form-control mt-2" id="permalink" name="permalink" required>
+        </div>
+
             <div class="form-group mt-4">
                 <label for="category">Category</label>
                 <select id="category" name="category" class="form-control mt-2" required>
