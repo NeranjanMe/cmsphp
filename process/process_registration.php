@@ -1,16 +1,13 @@
 <?php
-require_once '../database/db_connect.php'; // Add this line at the top of the file
+session_start(); // Move session_start() to the very top
+require_once '../database/db_connect.php'; 
 
-$db = connect_db(); // Use the connect_db() function from db_connect.php
+$db = connect_db();
 
 $username = $_POST['username'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-// Input validation
-if (empty($username) || empty($password) || empty($email)) {
-    die("Username, email, and password are required");
-}
 
 // Prepared statement to prevent SQL Injection
 $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
@@ -20,8 +17,14 @@ $result = $stmt->get_result();
 
 // Check if username already exists
 if ($result->num_rows > 0) {
-    die("Username already exists");
-} else {
+    $_SESSION['error'] = "Username already exists";
+    $_SESSION['input_values'] = [
+        'username' => $username,
+        'email' => $email,
+    ];
+    header("Location: ../register.php");
+    exit;
+}  else {
     // Hash the password and insert the new user into the database
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $stmt = $db->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
@@ -29,10 +32,13 @@ if ($result->num_rows > 0) {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        // Success! The user was registered. You might want to start a session here or send a confirmation email.
-        header("Location: ../login.php"); // Redirect to the login page or to a "Registration successful" page
+        // Success! The user was registered.
+        $_SESSION['success'] = "Registration successful! You can now log in.";
+        header("Location: ../login.php"); // Redirect to the login page
+        exit;
     } else {
-        // Error! The registration failed. Handle this error appropriately for your application.
+        // Error! The registration failed.
         die("Registration failed");
     }
+    
 }

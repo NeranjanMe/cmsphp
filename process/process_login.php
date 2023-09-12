@@ -21,13 +21,17 @@ $user = $result->fetch_object();
 
 // Check if user exists and password is correct
 if ($user && password_verify($password, $user->password)) {
-    // Success! User is logged in. You might want to start a session here.
+    // Success! User is logged in.
     session_start();
-    $_SESSION['username'] = $username; // You can save the username to the session
-    header("Location: ../author/index.php"); // Redirect to a logged in page like dashboard.php
+    $_SESSION['username'] = $username; 
+    header("Location: ../author/index.php");
+    exit;
 } else {
-    // Error! Authentication failed. Handle this error appropriately for your application.
-    die("Invalid username or password");
+    // Error! Authentication failed.
+    session_start();
+    $_SESSION['error'] = "Invalid username or password";
+    header("Location: ../login.php");
+    exit;
 }
 
 ?>
