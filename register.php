@@ -46,6 +46,39 @@ unset($_SESSION['input_values']);
                     <label for="rePassword">Re-enter Password:</label>
                     <input type="password" class="form-control mt-1" id="rePassword" placeholder="Re-enter password" name="rePassword" required>
                 </div>
+
+                <!-- Security Questions -->
+                <div class="form-group">
+                    <label for="security_question1">Security Question 1:</label>
+                    <select name="security_question1" class="form-control">
+                        <option value="What was your childhood nickname?">What was your childhood nickname?</option>
+                        <option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
+                        <option value="In what city or town did your mother and father meet?">In what city or town did your mother and father meet?</option>
+                    </select>
+                    <input type="text" class="form-control" name="security_answer1" placeholder="Your answer" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="security_question2">Security Question 2:</label>
+                    <select name="security_question2" class="form-control">
+                        <option value="What was your favorite place to visit as a child?">What was your favorite place to visit as a child?</option>
+                        <option value="What is the name of your first pet?">What is the name of your first pet?</option>
+                        <option value="What was the name of your elementary school?">What was the name of your elementary school?</option>
+                    </select>
+                    <input type="text" class="form-control" name="security_answer2" placeholder="Your answer" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="security_question3">Security Question 3:</label>
+                    <select name="security_question3" class="form-control">
+                        <option value="What is your grandmother's maiden name?">What is your grandmother's maiden name?</option>
+                        <option value="What was the make and model of your first car?">What was the make and model of your first car?</option>
+                        <option value="What was the house number and street name you lived in as a child?">What was the house number and street name you lived in as a child?</option>
+                    </select>
+                    <input type="text" class="form-control" name="security_answer3" placeholder="Your answer" required>
+                </div>
+
+
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
             </form>
         </div>

@@ -8,6 +8,13 @@ $username = $_POST['username'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 
+// Get security questions and answers from POST request
+$security_question1 = $_POST['security_question1'];
+$security_answer1 = $_POST['security_answer1'];
+$security_question2 = $_POST['security_question2'];
+$security_answer2 = $_POST['security_answer2'];
+$security_question3 = $_POST['security_question3'];
+$security_answer3 = $_POST['security_answer3'];
 
 // Prepared statement to prevent SQL Injection
 $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
@@ -27,8 +34,11 @@ if ($result->num_rows > 0) {
 }  else {
     // Hash the password and insert the new user into the database
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-    $stmt = $db->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-    $stmt->bind_param('sss', $username, $email, $hashed_password);
+    
+    // Update the SQL query to include security questions and answers
+    $stmt = $db->prepare("INSERT INTO users (username, email, password, security_question1, security_answer1, security_question2, security_answer2, security_question3, security_answer3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    
+    $stmt->bind_param('sssssssss', $username, $email, $hashed_password, $security_question1, $security_answer1, $security_question2, $security_answer2, $security_question3, $security_answer3);
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
@@ -42,3 +52,4 @@ if ($result->num_rows > 0) {
     }
     
 }
+?>
