@@ -22,11 +22,11 @@
                             <div class="sb-sidenav-menu-heading">Othrs</div>
                             <a class="nav-link" href="category.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Category
+                                Category Manage
                             </a>
-                            <a class="nav-link" href="author.php">
+                            <a class="nav-link" href="users.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Author
+                                Users Manage
                             </a>
 
                             <div class="sb-sidenav-menu-heading">AI Powered</div>

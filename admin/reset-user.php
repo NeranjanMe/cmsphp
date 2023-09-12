@@ -46,7 +46,7 @@ include '../include/admin_header.php';
     </ol>
     <div class="card mb-4 mt-5">
         <div class="card-body">
-            <form action="../process/process_author.php?action=reset_password&id=<?= $author_id ?>" method="post" onsubmit="Reset Password?">
+            <form action="../process/process_user.php?action=reset_password&id=<?= $author_id ?>" method="post" onsubmit="Reset Password?">
                 <div>
                     <label for="new_password">New Password:</label>
                     <input type="password" class="form-control mt-2" id="new_password" name="new_password" required>
