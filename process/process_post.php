@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Add new post
     $title = $_POST['title'];
     $category = $_POST['category'];
-    $tags = $_POST['tags'];
     $body = $_POST['body'];
     $language = $_POST['language'];
     $meta_title = $_POST['meta_title'];
@@ -28,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Required fields are empty");
     }
 
-    $stmt = $db->prepare("INSERT INTO posts (title, category, tags, body, language, meta_title, meta_description, meta_keyword, status, author,permalink) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
-    $stmt->bind_param('sssssssssss', $title, $category, $tags, $body, $language, $meta_title, $meta_description, $meta_keyword, $status, $author, $permalink);
+    $stmt = $db->prepare("INSERT INTO posts (title, category,  body, language, meta_title, meta_description, meta_keyword, status, author,permalink) VALUES (?,  ?, ?, ?, ?, ?, ?, ?, ?,?)");
+    $stmt->bind_param('sssssssssss', $title, $category,  $body, $language, $meta_title, $meta_description, $meta_keyword, $status, $author, $permalink);
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {

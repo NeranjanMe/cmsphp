@@ -81,10 +81,6 @@ include '../include/admin_header.php';
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="form-group mt-4">
-                <label for="tags">Tags</label>
-                <input type="text" class="form-control mt-2" id="tags" name="tags">
-            </div>
             
             
             <div class="form-group mt-4">
@@ -95,20 +91,82 @@ include '../include/admin_header.php';
 
             <div class="form-group mt-4">
                 <label for="language">Language</label>
-                <input type="text" class="form-control mt-2" id="language" name="language" required>
+                <select class="form-control mt-2" id="language" name="language" required>
+                    <option value="en">English (EN)</option>
+                    <option value="es">Spanish (ES)</option>
+                    <option value="fr">French (FR)</option>
+                    <option value="pt">Portuguese (PT)</option>
+                    <option value="nl">Dutch (NL)</option>
+                    <option value="zh">Chinese (ZH)</option>
+                    <option value="de">German (DE)</option>
+                    <option value="ar">Arabic (AR)</option>
+                    <option value="vi">Vietnamese (VI)</option>
+                    <option value="ru">Russian (RU)</option>
+                    <option value="th">Thai (TH)</option>
+                    <option value="pl">Polish (PL)</option>
+                    <option value="tr">Turkish (TR)</option>
+                    <option value="ja">Japanese (JA)</option>
+                    <option value="it">Italian (IT)</option>
+                    <option value="id">Indonesian (ID)</option>
+                    <option value="ko">Korean (KO)</option>
+                </select>
             </div>
-            <div class="form-group mt-4">
-                <label for="meta_title">Meta Title</label>
-                <input type="text" class="form-control mt-2" id="meta_title" name="meta_title">
-            </div>
-            <div class="form-group mt-4">
-                <label for="meta_description">Meta Description</label>
-                <input type="text" class="form-control mt-2" id="meta_description" name="meta_description">
-            </div>
+
             <div class="form-group mt-4">
                 <label for="meta_keyword">Meta Keyword</label>
-                <input type="text" class="form-control mt-2" id="meta_keyword" name="meta_keyword">
+                <textarea class="form-control mt-2" id="meta_keyword" name="meta_keyword" rows="2"></textarea>
             </div>
+
+            <div class="form-group mt-4">
+                <label for="meta_title">Meta Title <span id="charCount">0</span>/60</label>
+                <textarea class="form-control mt-2" id="meta_title" name="meta_title" rows="2" onkeyup="validateMetaTitle()"></textarea>
+                <div class="progress mt-2">
+                    <div class="progress-bar" role="progressbar" id="meta_title_score" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span id="score_label">Score: 0%</span> <!-- New span to show the score -->
+            </div>
+            
+            <script>
+    document.getElementById('meta_keyword').addEventListener('input', validateMetaTitle);
+
+    function validateMetaTitle() {
+        let metaKeywordString = document.getElementById('meta_keyword').value;
+        let metaKeywords = metaKeywordString.split(',').map(keyword => keyword.trim());
+        // Now metaKeywords is an array of individual keywords
+
+        let metaTitle = document.getElementById('meta_title').value;
+        let score = 100;
+
+        // Update character count
+        document.getElementById('charCount').innerText = metaTitle.length;
+
+        if (metaTitle.length > 60 || metaTitle.length < 50) {
+            score -= 50;
+        }
+
+        // Check if any keyword is included in the meta title
+        let keywordIncluded = metaKeywords.some(keyword => metaTitle.includes(keyword));
+        if (!keywordIncluded) {
+            score -= 50;
+        }
+
+        document.getElementById('meta_title_score').style.width = score + '%';
+        document.getElementById('meta_title_score').setAttribute('aria-valuenow', score);
+
+        // Update score label
+        document.getElementById('score_label').innerHTML = 'Score: ' + score + '%';
+    }
+</script>
+
+
+
+
+            <div class="form-group mt-4">
+                <label for="meta_description">Meta Description</label>
+                <textarea class="form-control mt-2" id="meta_description" name="meta_description" rows="4"></textarea>
+            </div>
+            
+
 
             <div class="form-group">
                 <label for="status">Status</label>
