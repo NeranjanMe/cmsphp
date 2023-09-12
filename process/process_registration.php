@@ -1,12 +1,19 @@
 <?php
-session_start(); // Move session_start() to the very top
+session_start(); 
 require_once '../database/db_connect.php'; 
+
+// Check if step1 data is available in the session
+if (!isset($_SESSION['step1_data'])) {
+    header("Location: ../register.php");
+    exit;
+}
 
 $db = connect_db();
 
-$username = $_POST['username'];
-$email = $_POST['email'];
-$password = $_POST['password'];
+// Retrieve step1 data from the session
+$username = $_SESSION['step1_data']['username'];
+$email = $_SESSION['step1_data']['email'];
+$password = $_SESSION['step1_data']['password'];
 
 // Get security questions and answers from POST request
 $security_question1 = $_POST['security_question1'];

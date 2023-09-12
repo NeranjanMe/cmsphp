@@ -1,5 +1,5 @@
 <?php
-session_start(); // Move session_start() to the very top
+session_start();
 include 'include/header.php'; 
 
 if (isset($_SESSION['error'])) {
@@ -16,19 +16,36 @@ $emailValue = $input_values['email'] ?? '';
 
 unset($_SESSION['input_values']);
 
+$current_step = $_SESSION['current_step'] ?? 1;
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($current_step == 1) {
+        // Add your validations for step 1 here
+        // If validation passes:
+        $_SESSION['step1_data'] = [
+            'username' => $_POST['username'],
+            'email' => $_POST['email'],
+            'password' => $_POST['password'],
+        ];
+        $current_step = 2;
+        $_SESSION['current_step'] = $current_step;
+    }
+}
+
 ?>
+
 <div class="container mt-5">
     <div class="row justify-content-md-center">
 
-        <!-- Column for the image on the left -->
         <div class="col-md-3">
             <img src="include/img/register-page-image.png" alt="Description" class="img-fluid">
         </div>
 
-        <!-- Column for the register form -->
         <div class="col-md-6">
             <h2>Register</h2>
-            <form action="process/process_registration.php" method="post" id="registerForm">
+            <form action="<?php echo $current_step == 2 ? 'process/process_registration.php' : ''; ?>" method="post" id="registerForm">
+            <?php if ($current_step == 1): ?>
+                <!-- Step 1 Fields -->
                 <div class="form-group mt-3">
                     <label for="username">Username:</label>
                     <input type="text" class="form-control mt-1" id="username" placeholder="Enter username" name="username" value="<?php echo htmlspecialchars($usernameValue); ?>" required>
@@ -46,6 +63,9 @@ unset($_SESSION['input_values']);
                     <label for="rePassword">Re-enter Password:</label>
                     <input type="password" class="form-control mt-1" id="rePassword" placeholder="Re-enter password" name="rePassword" required>
                 </div>
+                <button type="submit" class="btn btn-primary mt-3">Next</button>
+                <?php elseif ($current_step == 2): ?>
+                <!-- Step 2 Fields -->
 
                 <!-- Security Questions -->
                 <div class="form-group">
@@ -80,6 +100,7 @@ unset($_SESSION['input_values']);
 
 
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                <?php endif; ?>
             </form>
         </div>
     </div>
