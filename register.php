@@ -4,7 +4,7 @@
     <div class="row justify-content-md-center">
       <div class="col-md-6">
         <h2>Register</h2>
-        <form action="process_registration.php" method="post">
+        <form action="process/process_registration.php" method="post">
           <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" class="form-control" id="username" placeholder="Enter username" name="username" required>
