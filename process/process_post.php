@@ -27,9 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Required fields are empty");
     }
 
-    $stmt = $db->prepare("INSERT INTO posts (title, category,  body, language, meta_title, meta_description, meta_keyword, status, author,permalink) VALUES (?,  ?, ?, ?, ?, ?, ?, ?, ?,?)");
-    $stmt->bind_param('sssssssssss', $title, $category,  $body, $language, $meta_title, $meta_description, $meta_keyword, $status, $author, $permalink);
+    $stmt = $db->prepare("INSERT INTO posts (title, category,  body, language, meta_title, meta_description, meta_keyword, status, author, permalink) VALUES (?,  ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param('ssssssssss', $title, $category,  $body, $language, $meta_title, $meta_description, $meta_keyword, $status, $author, $permalink);
     $stmt->execute();
+
 
     if ($stmt->affected_rows > 0) {
         header("Location: ../admin/post.php"); // Redirect to the posts page

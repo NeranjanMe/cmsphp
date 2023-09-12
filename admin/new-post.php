@@ -113,8 +113,8 @@ include '../include/admin_header.php';
             </div>
 
             <div class="form-group mt-4">
-                <label for="meta_keyword">Meta Keyword</label>
-                <textarea class="form-control mt-2" id="meta_keyword" name="meta_keyword" rows="2"></textarea>
+                <label for="main_keyword">Main Keyword (Only One Keyword)</label>
+                <input type="text" class="form-control mt-2" id="main_keyword" name="main_keyword" required>
             </div>
 
             <div class="form-group mt-4">
@@ -125,49 +125,88 @@ include '../include/admin_header.php';
                 </div>
                 <span id="score_label">Score: 0%</span> <!-- New span to show the score -->
             </div>
-            
+
+            <!-- Meta Title Score -->
             <script>
-    document.getElementById('meta_keyword').addEventListener('input', validateMetaTitle);
+                document.getElementById('main_keyword').addEventListener('input', validateMetaTitle);
 
-    function validateMetaTitle() {
-        let metaKeywordString = document.getElementById('meta_keyword').value;
-        let metaKeywords = metaKeywordString.split(',').map(keyword => keyword.trim());
-        // Now metaKeywords is an array of individual keywords
+                function validateMetaTitle() {
+                    let metaKeywordString = document.getElementById('main_keyword').value;
+                    let metaKeywords = metaKeywordString.split(',').map(keyword => keyword.trim());
+                    // Now metaKeywords is an array of individual keywords
 
-        let metaTitle = document.getElementById('meta_title').value;
-        let score = 100;
+                    let metaTitle = document.getElementById('meta_title').value;
+                    let score = 100;
 
-        // Update character count
-        document.getElementById('charCount').innerText = metaTitle.length;
+                    // Update character count
+                    document.getElementById('charCount').innerText = metaTitle.length;
 
-        if (metaTitle.length > 60 || metaTitle.length < 50) {
-            score -= 50;
-        }
+                    if (metaTitle.length > 60 || metaTitle.length < 50) {
+                        score -= 50;
+                    }
 
-        // Check if any keyword is included in the meta title
-        let keywordIncluded = metaKeywords.some(keyword => metaTitle.includes(keyword));
-        if (!keywordIncluded) {
-            score -= 50;
-        }
+                    // Check if any keyword is included in the meta title
+                    let keywordIncluded = metaKeywords.some(keyword => metaTitle.includes(keyword));
+                    if (!keywordIncluded) {
+                        score -= 50;
+                    }
 
-        document.getElementById('meta_title_score').style.width = score + '%';
-        document.getElementById('meta_title_score').setAttribute('aria-valuenow', score);
+                    document.getElementById('meta_title_score').style.width = score + '%';
+                    document.getElementById('meta_title_score').setAttribute('aria-valuenow', score);
 
-        // Update score label
-        document.getElementById('score_label').innerHTML = 'Score: ' + score + '%';
-    }
-</script>
-
-
+                    // Update score label
+                    document.getElementById('score_label').innerHTML = 'Score: ' + score + '%';
+                }
+            </script>
 
 
             <div class="form-group mt-4">
-                <label for="meta_description">Meta Description</label>
-                <textarea class="form-control mt-2" id="meta_description" name="meta_description" rows="4"></textarea>
+                <label for="meta_description">Meta Description <span id="descCharCount">0</span>/160</label>
+                <textarea class="form-control mt-2" id="meta_description" name="meta_description" rows="4" onkeyup="validateMetaDescription()"></textarea>
+                <div class="progress mt-2">
+                    <div class="progress-bar" role="progressbar" id="meta_description_score" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <span id="desc_score_label">Score: 0%</span>
+            </div>
+
+            <!-- Script for Meta Description Score -->
+            <script>
+                document.getElementById('main_keyword').addEventListener('input', validateMetaDescription);
+
+                function validateMetaDescription() {
+                    let metaKeywordString = document.getElementById('main_keyword').value;
+                    let metaKeywords = metaKeywordString.split(',').map(keyword => keyword.trim());
+
+                    let metaDescription = document.getElementById('meta_description').value;
+                    let score = 100;
+
+                    // Update character count
+                    document.getElementById('descCharCount').innerText = metaDescription.length;
+
+                    if (metaDescription.length > 160 || metaDescription.length < 150) {
+                        score -= 50;
+                    }
+
+                    // Check if any keyword is included in the meta description
+                    let keywordIncluded = metaKeywords.some(keyword => metaDescription.includes(keyword));
+                    if (!keywordIncluded) {
+                        score -= 50;
+                    }
+
+                    document.getElementById('meta_description_score').style.width = score + '%';
+                    document.getElementById('meta_description_score').setAttribute('aria-valuenow', score);
+
+                    // Update score label
+                    document.getElementById('desc_score_label').innerHTML = 'Score: ' + score + '%';
+                }
+            </script>
+
+
+            <div class="form-group mt-4">
+                <label for="meta_keyword">Meta Keyword</label>
+                <textarea class="form-control mt-2" id="meta_keyword" name="meta_keyword" rows="2"></textarea>
             </div>
             
-
-
             <div class="form-group">
                 <label for="status">Status</label>
                 <select id="status" name="status" class="form-control" required>
