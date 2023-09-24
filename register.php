@@ -41,20 +41,26 @@ $_SESSION['current_step'] = $current_step;
 ?>
 
 
-<div>
-    <?php
-    function connect_db() {
-        $db = new mysqli('localhost', 'root', '-asDOomHsuBoN27B', 'upto_cmsdb');
-        if ($db->connect_error) {
-            echo "<p style='color: red;'>Error: Unable to connect to the database!</p>";
-        } else {
-            echo "<p style='color: green;'>Connected to the database successfully.</p>";
-        }
-    }
-
-    connect_db();
-    ?>
-</div>
+<?php
+$servername = "localhost";
+$database = "root";
+$username = "-asDOomHsuBoN27B";
+$password = "upto_cmsdb";
+ 
+// Create connection
+ 
+$conn = mysqli_connect($servername, $username, $password, $database);
+ 
+// Check connection
+ 
+if (!$conn) {
+ 
+    die("Connection failed: " . mysqli_connect_error());
+ 
+}
+echo "Connected successfully";
+mysqli_close($conn);
+?>
 
 
 <div class="container mt-5">
