@@ -40,13 +40,34 @@ $_SESSION['current_step'] = $current_step;
 
 ?>
 
+<?php
+function connect_db() {
+    $db = new mysqli('localhost', 'root', '-asDOomHsuBoN27B', 'upto_cmsdb');
+    if ($db->connect_error) {
+        return false;
+    }
+    return $db;
+}
+
+$db = connect_db();
+$connection_error = !$db;
+
+?>
+<div>
+    <?php
+    if ($connection_error) {
+        echo "<p style='color: red;'>Error: Unable to connect to the database!</p>";
+    } else {
+        echo "<p style='color: green;'>Connected to the database successfully.</p>";
+    }
+    ?>
+</div>
 <div class="container mt-5">
     <div class="row justify-content-md-center">
 
         <div class="col-md-3">
             <img src="include/img/register-page-image.png" alt="Description" class="img-fluid">
         </div>
-        <?php echo "Hello"?>
         <div class="col-md-6">
             <h2>Register</h2>
             <form action="<?php echo $current_step == 2 ? 'process/process_registration.php' : ''; ?>" method="post" id="registerForm">
