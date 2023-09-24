@@ -56,6 +56,8 @@ else {
 
     if ($stmt->affected_rows > 0) {
         // Success! The user was registered as admin.
+        unset($_SESSION['step1_data']);
+        unset($_SESSION['current_step']);
         $_SESSION['success'] = "Registration successful! You can now log in as an admin.";
         header("Location: ../login.php"); // Redirect to the login page
         exit;

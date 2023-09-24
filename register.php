@@ -1,23 +1,23 @@
 <?php
-// Initialize session and include necessary files
 session_start();
-include 'include/header.php'; 
+include 'include/header.php';
 
-// Connect to database using session variable for database name
-require_once 'database/db_connect.php';
-$db = connect_db($_SESSION['dbname']);
+if (isset($_SESSION['dbname'])) {
+    require_once 'database/db_connect.php';
+    $db = connect_db($_SESSION['dbname']);
+    
+    $admin_check_query = "SELECT * FROM users WHERE role = 'admin'";
+    $result = $db->query($admin_check_query);
 
-// Check if an admin user already exists in the database
-$admin_check_query = "SELECT * FROM users WHERE role = 'admin'";
-$result = $db->query($admin_check_query);
-
-// If an admin exists, redirect to the login page
-if ($result->num_rows > 0) {
-    header("Location: login.php");
-    exit;
+    if ($result->num_rows > 0) {
+        $_SESSION['current_step'] = 1; 
+        header("Location: login.php");
+        exit;
+    }
+} else {
+    $_SESSION['dbname'] = 'placeholder_db_name';
 }
 
-// Handle error messages from previous session
 if (isset($_SESSION['error'])) {
     $error_message = $_SESSION['error'];
     unset($_SESSION['error']);
@@ -25,26 +25,17 @@ if (isset($_SESSION['error'])) {
     $error_message = '';
 }
 
-// Retain previous input values (if any)
 $input_values = $_SESSION['input_values'] ?? [];
 
-// Pre-fill form fields if values exist in session
 $usernameValue = $input_values['username'] ?? '';
 $emailValue = $input_values['email'] ?? '';
 
-// Clear saved input values from session
 unset($_SESSION['input_values']);
 
-// Initialize current registration step
 $current_step = $_SESSION['current_step'] ?? 1;
 
-// If the form was submitted via POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Handle step 1 of the registration process
     if ($current_step == 1) {
-        // Validate user input for this step
-        // (validation logic goes here)
-        // Save valid data to session
         $_SESSION['step1_data'] = [
             'firstName' => $_POST['firstName'],
             'lastName' => $_POST['lastName'],
@@ -53,16 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'email' => $_POST['email'],
             'password' => $_POST['password'],
         ];
-        // Move to next registration step
         $current_step = 2;
         $_SESSION['current_step'] = $current_step;
     }
 }
 
-// If a step is specified in the URL, update the current step
 $current_step = isset($_GET['step']) ? (int)$_GET['step'] : ($_SESSION['current_step'] ?? 1);
-
-// Save the current step to session
 $_SESSION['current_step'] = $current_step;
 
 ?>
@@ -78,7 +65,7 @@ $_SESSION['current_step'] = $current_step;
             <h2>Register</h2>
             <form action="<?php echo $current_step == 2 ? 'process/process_registration.php' : ''; ?>" method="post" id="registerForm">
             <?php if ($current_step == 1): ?>
-                <!-- Step 1 Fields - Register -->
+                <!-- Step 1 Fields -->
                 <div class="form-group mt-3">
                     <label for="firstName">First Name:</label>
                     <input type="text" class="form-control mt-1" id="firstName" placeholder="Enter first name" name="firstName" value="<?php echo htmlspecialchars($input_values['firstName'] ?? ''); ?>" required>
@@ -110,10 +97,10 @@ $_SESSION['current_step'] = $current_step;
                     <input type="password" class="form-control mt-1" id="rePassword" placeholder="Re-enter password" name="rePassword" required>
                 </div>
                 <button type="submit" class="btn btn-primary mt-3">Next</button>
-
-                <!-- Step 2 Fields - Security Questions -->
                 <?php elseif ($current_step == 2): ?>
+                <!-- Step 2 Fields -->
 
+                <!-- Security Questions -->
                 <div class="form-group">
                     <label for="security_question1">Security Question 1:</label>
                     <select name="security_question1" class="form-control">
@@ -143,6 +130,7 @@ $_SESSION['current_step'] = $current_step;
                     </select>
                     <input type="text" class="form-control" name="security_answer3" placeholder="Your answer" required>
                 </div>
+
 
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
                 <button type="button" class="btn btn-secondary mt-3" onclick="window.location.href='register.php?step=1'">Back</button>
@@ -206,6 +194,7 @@ $_SESSION['current_step'] = $current_step;
         }
     });
 </script>
+
 
 
 <?php include 'include/footer.php'; ?>
