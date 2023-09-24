@@ -106,8 +106,8 @@ include '../include/admin_header.php';
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Name</th>
-                                                <th>Action</th>
                                                 <th>Total Post</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>

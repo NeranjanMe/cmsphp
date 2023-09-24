@@ -44,9 +44,15 @@
                             <div class="sb-sidenav-menu-heading">Setting</div>
                             <a class="nav-link" href="setting_public.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Public
+                                Public Setting
+                            </a>
+                            <a class="nav-link" href="setting_category.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Category Setting
                             </a>
 
+
+                            
                         </div>
                     </div>
                 </nav>
