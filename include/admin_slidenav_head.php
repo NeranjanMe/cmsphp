@@ -41,6 +41,12 @@
                                 Blog Content
                             </a>
 
+                            <div class="sb-sidenav-menu-heading">Setting</div>
+                            <a class="nav-link" href="setting_public.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Public
+                            </a>
+
                         </div>
                     </div>
                 </nav>
