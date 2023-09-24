@@ -1,8 +1,16 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require_once '../database/db_connect.php'; // Add this line at the top of the file
 
 $db = connect_db(); // Use the connect_db() function from db_connect.php
+
+if ($db->connect_error) {
+    die("Database connection failed: " . $db->connect_error);
+}
+
 
 $username = $_POST['username'];
 $password = $_POST['password'];

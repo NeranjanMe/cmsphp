@@ -46,7 +46,7 @@ $_SESSION['current_step'] = $current_step;
         <div class="col-md-3">
             <img src="include/img/register-page-image.png" alt="Description" class="img-fluid">
         </div>
-
+        <?php echo "Hello"?>
         <div class="col-md-6">
             <h2>Register</h2>
             <form action="<?php echo $current_step == 2 ? 'process/process_registration.php' : ''; ?>" method="post" id="registerForm">
