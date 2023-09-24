@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $meta_description = $_POST['meta_description'];
     $meta_keyword = $_POST['meta_keyword'];
     $status = $_POST['status'];
-    $author = $_SESSION["username"]; // The author of the post is the currently logged in user
+    $author = $_SESSION["username"]; 
     $permalink = $_POST['permalink'];
 
     if (empty($title) || empty($category) || empty($body) || empty($language) || empty($status) || empty($permalink)) {
