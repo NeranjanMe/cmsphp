@@ -16,6 +16,11 @@ if (isset($_SESSION['success'])) {
 } else {
     $success_message = '';
 }
+
+
+unset($_SESSION['step1_data']);
+unset($_SESSION['current_step']);
+
 ?>
 
 <div class="container mt-5">

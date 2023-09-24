@@ -1,22 +1,6 @@
 <?php
 session_start();
-include 'include/header.php';
-
-if (isset($_SESSION['dbname'])) {
-    require_once 'database/db_connect.php';
-    $db = connect_db($_SESSION['dbname']);
-    
-    $admin_check_query = "SELECT * FROM users WHERE role = 'admin'";
-    $result = $db->query($admin_check_query);
-
-    if ($result->num_rows > 0) {
-        $_SESSION['current_step'] = 1; 
-        header("Location: login.php");
-        exit;
-    }
-} else {
-    $_SESSION['dbname'] = 'placeholder_db_name';
-}
+include 'include/header.php'; 
 
 if (isset($_SESSION['error'])) {
     $error_message = $_SESSION['error'];
@@ -36,6 +20,8 @@ $current_step = $_SESSION['current_step'] ?? 1;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($current_step == 1) {
+        // Add your validations for step 1 here
+        // If validation passes:
         $_SESSION['step1_data'] = [
             'firstName' => $_POST['firstName'],
             'lastName' => $_POST['lastName'],

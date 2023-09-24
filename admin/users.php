@@ -16,6 +16,12 @@ $stmt->execute();
 $result = $stmt->get_result();
 $users = $result->fetch_all(MYSQLI_ASSOC);
 
+// Query to get all users with their post counts
+$stmt = $db->prepare(" SELECT users.*, SUM(CASE WHEN posts.status = 'publish' THEN 1 ELSE 0 END) as total_posts FROM users LEFT JOIN posts ON users.username = posts.author GROUP BY users.id, users.username ");
+$stmt->execute();
+$result = $stmt->get_result();
+$users = $result->fetch_all(MYSQLI_ASSOC);
+
 include '../include/admin_header.php';
 ?>
 
@@ -28,7 +34,7 @@ include '../include/admin_header.php';
             </ol>
             <div class="card mb-4 mt-5">
                 <div class="card-body">
-                    <a href="new-user.php" class="btn btn-primary">Add New User</a>
+                    <a href="users-new.php" class="btn btn-primary">Add New User</a>
                 </div>
             </div>
 
@@ -47,6 +53,7 @@ include '../include/admin_header.php';
                                     <th>SurName</th>
                                     <th>Email</th>
                                     <th>Created Date</th>
+                                    <th>Total Posts</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -61,10 +68,11 @@ include '../include/admin_header.php';
                                         <td><?= htmlspecialchars($user['surname']) ?></td>
                                         <td><?= htmlspecialchars($user['email']) ?></td>
                                         <td><?= htmlspecialchars($user['created_date']) ? date('Y-m-d H:i:s', strtotime($user['created_date'])) : 'N/A' ?></td>
+                                        <td><?= htmlspecialchars($user['total_posts']) ?></td>
                                         <td>
-                                        <a href="edit-user.php?id=<?= $user['id'] ?>" class="btn btn-info">Edit</a>
+                                        <a href="users-edit.php?id=<?= $user['id'] ?>" class="btn btn-info">Edit</a>
                                         <a href="../process/process_user.php?action=delete&id=<?= $user['id'] ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
-                                        <a href="reset-user.php?id=<?= $user['id'] ?>" class="btn btn-warning">Reset Password</a>
+                                        <a href="users-reset.php?id=<?= $user['id'] ?>" class="btn btn-warning">Reset Password</a>
                                     </td>
                                     </tr>
                                 <?php endforeach; ?>

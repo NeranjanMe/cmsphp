@@ -49,15 +49,13 @@ else {
     // Update the SQL query to include security questions and answers, and set role to 'admin'
     $stmt = $db->prepare("INSERT INTO users (username, email, password, role, first_name, second_name, surname, security_question1, security_answer1, security_question2, security_answer2, security_question3, security_answer3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $role = 'admin';
+    $role = 'Admin';
     $stmt->bind_param('sssssssssssss', $username, $email, $hashed_password, $role, $first_name, $second_name, $surname, $security_question1, $security_answer1, $security_question2, $security_answer2, $security_question3, $security_answer3);
     $stmt->execute();
 
 
     if ($stmt->affected_rows > 0) {
         // Success! The user was registered as admin.
-        unset($_SESSION['step1_data']);
-        unset($_SESSION['current_step']);
         $_SESSION['success'] = "Registration successful! You can now log in as an admin.";
         header("Location: ../login.php"); // Redirect to the login page
         exit;

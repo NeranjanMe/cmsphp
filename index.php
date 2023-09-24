@@ -6,6 +6,9 @@ $stmt = $db->prepare("SELECT * FROM posts ORDER BY created_at DESC");
 $stmt->execute();
 $result = $stmt->get_result();
 $posts = $result->fetch_all(MYSQLI_ASSOC);
+
+unset($_SESSION['step1_data']);
+unset($_SESSION['current_step']);
 ?>
 
 <?php include 'include/header.php'; ?>
