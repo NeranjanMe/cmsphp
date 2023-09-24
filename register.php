@@ -40,9 +40,22 @@ $_SESSION['current_step'] = $current_step;
 
 ?>
 
-<?php
 
-?>
+<div>
+    <?php
+    function connect_db() {
+        $db = new mysqli('localhost', 'root', '-asDOomHsuBoN27B', 'upto_cmsdb');
+        if ($db->connect_error) {
+            echo "<p style='color: red;'>Error: Unable to connect to the database!</p>";
+        } else {
+            echo "<p style='color: green;'>Connected to the database successfully.</p>";
+        }
+    }
+
+    connect_db();
+    ?>
+</div>
+
 
 <div class="container mt-5">
     <div class="row justify-content-md-center">
