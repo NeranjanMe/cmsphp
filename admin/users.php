@@ -22,6 +22,8 @@ $stmt->execute();
 $result = $stmt->get_result();
 $users = $result->fetch_all(MYSQLI_ASSOC);
 
+
+$pageTitle = "Manage Users";
 include '../include/admin_header.php';
 ?>
 
@@ -38,6 +40,17 @@ include '../include/admin_header.php';
                 </div>
             </div>
 
+            <?php
+                if (isset($_SESSION['error_msg'])) {
+                    echo "<div class='alert alert-danger' id='error_msg'>" . $_SESSION['error_msg'] . "</div>";
+                    unset($_SESSION['error_msg']);  // remove the message after displaying it
+                }
+
+                if (isset($_SESSION['success_msg'])) {
+                    echo '<div class="alert alert-success" id="success_msg">' . $_SESSION['success_msg'] . '</div>';
+                    unset($_SESSION['success_msg']); // Remove the message after displaying
+                }
+                ?>
 
             <!-- Users table -->
                 <div class="card mb-4 mt-5">
@@ -86,6 +99,22 @@ include '../include/admin_header.php';
 <script>
 $(document).ready(function() {
     $('#datatablesSimple').DataTable();
+});
+
+document.addEventListener('DOMContentLoaded', function() {  // Ensure the DOM is fully loaded
+    // Hide error message after 5 seconds
+    if (document.getElementById('error_msg')) {
+        setTimeout(function() {
+            document.getElementById('error_msg').style.display = 'none';
+        }, 5000);
+    }
+
+    // Hide success message after 5 seconds
+    if (document.getElementById('success_msg')) {
+        setTimeout(function() {
+            document.getElementById('success_msg').style.display = 'none';
+        }, 5000);
+    }
 });
 </script>
 

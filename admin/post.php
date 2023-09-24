@@ -16,6 +16,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 $posts = $result->fetch_all(MYSQLI_ASSOC);
 
+$pageTitle = "Manage Post";
 include '../include/admin_header.php';
 ?>
 

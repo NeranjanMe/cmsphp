@@ -13,6 +13,7 @@ $db = connect_db();
 include '../include/admin_header.php';
 ?>
 
+$pageTitle = "Generate Blog Content";
 <?php include '../include/admin_slidenav_head.php'; ?>
 
         <h1 class="mt-4">Blog Content</h1>

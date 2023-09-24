@@ -10,7 +10,8 @@ if(!isset($_SESSION["username"])){
 require_once '../database/db_connect.php';
 $db = connect_db();
 
-$stmt = $db->prepare("SELECT * FROM categories ORDER BY id DESC");
+$stmt = $db->prepare("SELECT categories.*, COALESCE(COUNT(posts.id), 0) as total_posts FROM categories LEFT JOIN posts ON categories.name = posts.category GROUP BY categories.id");
+
 $stmt->execute();
 $result = $stmt->get_result();
 $categories = $result->fetch_all(MYSQLI_ASSOC);
@@ -27,7 +28,22 @@ if (isset($_GET['edit_id'])) {
     $edit_category = $result->fetch_assoc();
 }
 
+$stmt = $db->prepare("
+    SELECT 
+        categories.id,
+        categories.name,
+        COUNT(posts.id) as total_posts 
+    FROM 
+        categories
+    LEFT JOIN 
+        posts ON categories.name = posts.category AND posts.status = 'publish'
+    GROUP BY 
+        categories.id, categories.name
+    ORDER BY 
+        categories.id DESC
+");
 
+$pageTitle = "Manage Categories";
 include '../include/admin_header.php';
 ?>
 
@@ -55,6 +71,7 @@ include '../include/admin_header.php';
                                         <button type="submit" class="btn btn-primary mt-4">Save Changes</button>
                                         <a href="category.php" class="btn btn-primary mt-4">Cancel</a>
                                     </form>
+
                                 <?php else: ?>
                                     <!-- Add new category form -->
                                     <h2 class="card-title">Add New Category</h2>
@@ -66,18 +83,23 @@ include '../include/admin_header.php';
                                         <button type="submit" class="btn btn-primary mt-4">Add New Category</button>
                                     </form>
                                 <?php endif; ?>
-
-
-                                
                             </div>
                         </div>
 
+                        <?php
+                            if (isset($_SESSION['error_msg'])) {
+                                echo "<div class='alert alert-danger' id='error_msg'>" . $_SESSION['error_msg'] . "</div>";
+                                unset($_SESSION['error_msg']);  // remove the message after displaying it
+                            }
+
+                            if (isset($_SESSION['success_msg'])) {
+                                echo '<div class="alert alert-success" id="success_msg">' . $_SESSION['success_msg'] . '</div>';
+                                unset($_SESSION['success_msg']); // Remove the message after displaying
+                            }
+                        ?>
+
                         <!-- Categories table -->
                             <div class="card mb-4 mt-5">
-                                <div class="card-header">
-                                    <i class="fas fa-table me-1"></i>
-                                    Categories Table
-                                </div>
                                 <div class="card-body">
                                     <table id="datatablesSimple" class="table table-striped">
                                         <thead>
@@ -85,20 +107,17 @@ include '../include/admin_header.php';
                                                 <th>ID</th>
                                                 <th>Name</th>
                                                 <th>Action</th>
+                                                <th>Total Post</th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </tfoot>
                                         <tbody>
                                             <?php foreach ($categories as $category): ?>
                                                 <tr>
                                                     <td><?php echo $category['id']; ?></td>
                                                     <td><?php echo $category['name']; ?></td>
+                                                    <td><?php echo isset($category['total_posts']) ? $category['total_posts'] : '0'; ?></td>
+
+                                                    
                                                     <td>
                                                         <a href="category.php?edit_id=<?php echo $category['id']; ?>" class="btn btn-primary">Edit</a>
                                                         <a href="../process/process_category.php?action=delete&id=<?php echo $category['id']; ?>" class="btn btn-danger">Delete</a>
@@ -115,6 +134,22 @@ include '../include/admin_header.php';
 <script>
 $(document).ready(function() {
     $('#datatablesSimple').DataTable();
+});
+
+document.addEventListener('DOMContentLoaded', function() {  // Ensure the DOM is fully loaded
+    // Hide error message after 5 seconds
+    if (document.getElementById('error_msg')) {
+        setTimeout(function() {
+            document.getElementById('error_msg').style.display = 'none';
+        }, 5000);
+    }
+
+    // Hide success message after 5 seconds
+    if (document.getElementById('success_msg')) {
+        setTimeout(function() {
+            document.getElementById('success_msg').style.display = 'none';
+        }, 5000);
+    }
 });
 </script>
 

@@ -10,8 +10,8 @@ if(!isset($_SESSION["username"])){
 
 $db = connect_db();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-    // Update existing category
+// Update existing category
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) { 
     $id = $_POST['id'];
     $name = $_POST['name'];
 
@@ -24,12 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        header("Location: ../author/category.php"); // Redirect to the category page
+        $_SESSION['success_msg'] = "User successfully Updated!";
+        header("Location: ../admin/category.php");
+        exit;
     } else {
         die("Error updating category");
     }
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Add new category
+} 
+// Add new category
+elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
 
     if (empty($name)) {
@@ -41,12 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        header("Location: ../admin/category.php"); // Redirect to the category page
+        $_SESSION['success_msg'] = "User successfully Added!";
+        header("Location: ../admin/category.php");
+        exit;
     } else {
         die("Error adding category");
     }
-} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'delete') {
-    // Delete a category
+} 
+// Delete a category
+elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'delete') {
+
     $id = $_GET['id'];
 
     if (empty($id)) {
@@ -58,7 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
-        header("Location: ../admin/category.php"); // Redirect to the category page
+        $_SESSION['success_msg'] = "User successfully Deleted!";
+        header("Location: ../admin/category.php");
+        exit;
     } else {
         die("Error deleting category");
     }

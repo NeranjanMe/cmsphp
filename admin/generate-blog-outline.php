@@ -10,6 +10,7 @@ if(!isset($_SESSION["username"])){
 require_once '../database/db_connect.php';
 $db = connect_db();
 
+$pageTitle = "Generate Blog Outline";
 include '../include/admin_header.php';
 ?>
 
