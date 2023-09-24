@@ -15,6 +15,7 @@ $stmt = $db->prepare("SELECT id, name, is_default FROM categories");
 $stmt->execute();
 $categories = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
+$pageTitle = "Category Setting";
 include '../include/admin_header.php';
 ?>
 
