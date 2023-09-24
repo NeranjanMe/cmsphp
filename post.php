@@ -8,8 +8,11 @@ if(isset($_GET['permalink'])){
     die("Permalink is missing.");
 }
 
-$stmt = $db->prepare("SELECT * FROM posts WHERE permalink = ?");
-$stmt->bind_param('s', $permalink);
+// Fetch language from the URL
+$lang = isset($_GET['lang']) ? $_GET['lang'] : 'en';  // Default to 'en' if not provided
+
+$stmt = $db->prepare("SELECT * FROM posts WHERE language = ? AND permalink = ?");
+$stmt->bind_param('ss', $lang, $permalink);
 $stmt->execute();
 $result = $stmt->get_result();
 $post = $result->fetch_assoc();

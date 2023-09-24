@@ -27,12 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Required fields are empty");
     }
 
-    $stmt = $db->prepare("INSERT INTO posts (title, category,  body, language, meta_title, meta_description, meta_keyword, status, author, permalink) VALUES (?,  ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param('ssssssssss', $title, $category,  $body, $language, $meta_title, $meta_description, $meta_keyword, $status, $author, $permalink);
+    $stmt = $db->prepare("INSERT INTO posts (title, category,  body, meta_title, meta_description, meta_keyword, status, author, language, permalink) VALUES (?,  ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param('ssssssssss', $title, $category,  $body, $meta_title, $meta_description, $meta_keyword, $status, $author, $language, $permalink);
     $stmt->execute();
 
 
     if ($stmt->affected_rows > 0) {
+        $_SESSION['success_msg'] = "New Post successfully Added!";
         header("Location: ../admin/post.php"); // Redirect to the posts page
     } else {
         die("Error adding post");
@@ -50,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
+        $_SESSION['success_msg'] = "Post successfully Deleted!";
         header("Location: ../admin/post.php"); // Redirect to the posts page
     } else {
         die("Error deleting post");

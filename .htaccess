@@ -1,7 +1,5 @@
-Options +FollowSymLinks
 RewriteEngine On
 RewriteBase /
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^([a-zA-Z0-9-]+)/?$ single_post.php?permalink=$1 [L,QSA]
+# Redirect to specific PHP file based on language subdirectory
+RewriteRule ^([a-z]{2})/(.*)$ article.php?lang=$1&permalink=$2 [L,QSA]
