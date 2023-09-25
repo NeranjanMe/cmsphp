@@ -8,12 +8,12 @@ $stmt = $db->prepare("SELECT * FROM posts WHERE language = ? AND status = 'publi
 $stmt->bind_param('s', $lang);
 $stmt->execute();
 
-
 $result = $stmt->get_result();
 $posts = $result->fetch_all(MYSQLI_ASSOC);
-?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/include/header.php'; ?>
+$pageTitle = "Home";
+include $_SERVER['DOCUMENT_ROOT'] . '/include/header.php'; 
+?>
 
 <header class="py-5 bg-light border-bottom mb-4">
     <div class="container">

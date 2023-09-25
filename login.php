@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+$pageTitle = "Login";
 include 'include/header.php'; 
 
 if (isset($_SESSION['error'])) {

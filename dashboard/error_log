@@ -1,3 +1,26 @@
 [25-Sep-2023 06:17:39 UTC] PHP Warning:  Undefined array key "user_role" in /home/onemhmce/uptoware.com/dashboard/post.php on line 14
 [25-Sep-2023 06:17:52 UTC] PHP Warning:  Undefined array key "user_role" in /home/onemhmce/uptoware.com/dashboard/post.php on line 14
 [25-Sep-2023 06:22:33 UTC] PHP Warning:  Undefined array key "user_role" in /home/onemhmce/uptoware.com/dashboard/post.php on line 14
+[25-Sep-2023 11:26:05 UTC] PHP Warning:  Undefined variable $lang in /home/onemhmce/uptoware.com/dashboard/post.php on line 75
+[25-Sep-2023 11:26:05 UTC] PHP Warning:  Undefined variable $lang in /home/onemhmce/uptoware.com/dashboard/post.php on line 75
+[25-Sep-2023 11:26:05 UTC] PHP Warning:  Undefined variable $lang in /home/onemhmce/uptoware.com/dashboard/post.php on line 75
+[25-Sep-2023 11:26:05 UTC] PHP Warning:  Undefined variable $lang in /home/onemhmce/uptoware.com/dashboard/post.php on line 75
+[25-Sep-2023 11:26:05 UTC] PHP Warning:  Undefined variable $lang in /home/onemhmce/uptoware.com/dashboard/post.php on line 75
+[25-Sep-2023 11:26:05 UTC] PHP Warning:  Undefined variable $lang in /home/onemhmce/uptoware.com/dashboard/post.php on line 75
+[25-Sep-2023 11:26:05 UTC] PHP Warning:  Undefined variable $lang in /home/onemhmce/uptoware.com/dashboard/post.php on line 75
+[25-Sep-2023 11:26:05 UTC] PHP Warning:  Undefined variable $lang in /home/onemhmce/uptoware.com/dashboard/post.php on line 75
+[25-Sep-2023 11:26:05 UTC] PHP Warning:  Undefined variable $lang in /home/onemhmce/uptoware.com/dashboard/post.php on line 75
+[25-Sep-2023 11:26:05 UTC] PHP Warning:  Undefined variable $lang in /home/onemhmce/uptoware.com/dashboard/post.php on line 75
+[25-Sep-2023 11:26:05 UTC] PHP Warning:  Undefined variable $lang in /home/onemhmce/uptoware.com/dashboard/post.php on line 75
+[25-Sep-2023 11:26:05 UTC] PHP Warning:  Undefined variable $lang in /home/onemhmce/uptoware.com/dashboard/post.php on line 75
+[25-Sep-2023 11:26:05 UTC] PHP Warning:  Undefined variable $lang in /home/onemhmce/uptoware.com/dashboard/post.php on line 75
+[25-Sep-2023 11:26:05 UTC] PHP Warning:  Undefined variable $lang in /home/onemhmce/uptoware.com/dashboard/post.php on line 75
+[25-Sep-2023 15:52:10 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_all() on bool in /home/onemhmce/uptoware.com/dashboard/post.php:31
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/dashboard/post.php on line 31
+[25-Sep-2023 15:52:51 UTC] PHP Warning:  Undefined variable $result in /home/onemhmce/uptoware.com/dashboard/post.php on line 30
+[25-Sep-2023 15:52:51 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_all() on null in /home/onemhmce/uptoware.com/dashboard/post.php:30
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/dashboard/post.php on line 30

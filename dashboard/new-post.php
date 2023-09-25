@@ -213,14 +213,36 @@ include '../include/dashboard_header.php';
             </div>
 
             
+           <!-- Your Status Dropdown -->
             <div class="form-group">
                 <label for="status">Status</label>
-                <select id="status" name="status" class="form-control" required>
+                <select id="status" name="status" class="form-control" required onchange="toggleScheduledDate();">
                     <option value="">Select a status</option>
                     <option value="publish">Publish</option>
                     <option value="draft">Draft</option>
+                    <option value="schedule">Schedule</option>
                 </select>
             </div>
+            
+            <!-- Your Scheduled Date Input Field wrapped in a div -->
+            <div class="form-group" id="scheduledDateContainer" style="display: none;">
+                <label for="scheduled_date">Scheduled Date (Leave empty for immediate publish):</label>
+                <input type="datetime-local" id="scheduled_date" name="scheduled_date" class="form-control">
+            </div>
+            
+            <!-- JavaScript to toggle visibility -->
+            <script>
+            function toggleScheduledDate() {
+                const statusDropdown = document.getElementById('status');
+                const scheduledDateContainer = document.getElementById('scheduledDateContainer');
+            
+                if (statusDropdown.value === 'schedule') {
+                    scheduledDateContainer.style.display = 'block';
+                } else {
+                    scheduledDateContainer.style.display = 'none';
+                }
+            }
+            </script>
 
 
             <button type="submit" class="btn btn-primary mt-4">Create Post</button>
