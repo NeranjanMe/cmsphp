@@ -1,0 +1,55 @@
+[25-Sep-2023 06:55:35 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function getExcerpt() in /home/onemhmce/uptoware.com/index.php:33
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/index.php on line 33
+[25-Sep-2023 07:01:58 UTC] PHP Fatal error:  Uncaught ValueError: strpos(): Argument #3 ($offset) must be contained in argument #1 ($haystack) in /home/onemhmce/uptoware.com/index.php:13
+Stack trace:
+#0 /home/onemhmce/uptoware.com/index.php(13): strpos()
+#1 /home/onemhmce/uptoware.com/index.php(47): getExcerpt()
+#2 {main}
+  thrown in /home/onemhmce/uptoware.com/index.php on line 13
+[25-Sep-2023 07:14:20 UTC] PHP Parse error:  syntax error, unexpected token "endforeach", expecting end of file in /home/onemhmce/uptoware.com/index.php on line 98
+[25-Sep-2023 07:15:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function get_categories() in /home/onemhmce/uptoware.com/index.php:48
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/index.php on line 48
+[25-Sep-2023 08:56:21 UTC] PHP Warning:  Undefined variable $url in /home/onemhmce/uptoware.com/index.php on line 43
+[25-Sep-2023 08:56:21 UTC] PHP Warning:  Undefined variable $url in /home/onemhmce/uptoware.com/index.php on line 43
+[25-Sep-2023 08:56:21 UTC] PHP Warning:  Undefined variable $url in /home/onemhmce/uptoware.com/index.php on line 43
+[25-Sep-2023 08:56:24 UTC] PHP Warning:  Undefined variable $url in /home/onemhmce/uptoware.com/index.php on line 43
+[25-Sep-2023 08:56:24 UTC] PHP Warning:  Undefined variable $url in /home/onemhmce/uptoware.com/index.php on line 43
+[25-Sep-2023 08:56:24 UTC] PHP Warning:  Undefined variable $url in /home/onemhmce/uptoware.com/index.php on line 43
+[25-Sep-2023 08:56:27 UTC] PHP Warning:  Undefined variable $url in /home/onemhmce/uptoware.com/index.php on line 43
+[25-Sep-2023 08:58:57 UTC] PHP Warning:  Undefined variable $url in /home/onemhmce/uptoware.com/index.php on line 43
+[25-Sep-2023 08:58:58 UTC] PHP Warning:  Undefined variable $url in /home/onemhmce/uptoware.com/index.php on line 43
+[25-Sep-2023 08:59:00 UTC] PHP Warning:  Undefined variable $url in /home/onemhmce/uptoware.com/index.php on line 43
+[25-Sep-2023 09:47:52 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 09:47:52 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 09:47:52 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:02:48 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:02:48 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:02:48 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:03:20 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:03:20 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:03:20 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:03:20 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:04:48 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:04:48 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:04:48 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:04:48 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:05:08 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:05:08 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:05:08 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:05:08 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:06:53 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 36
+[25-Sep-2023 10:06:53 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 39
+[25-Sep-2023 10:06:53 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 36
+[25-Sep-2023 10:06:53 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 39
+[25-Sep-2023 10:06:53 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 36
+[25-Sep-2023 10:06:53 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 39
+[25-Sep-2023 10:06:53 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 36
+[25-Sep-2023 10:06:53 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 39
+[25-Sep-2023 10:07:09 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:07:09 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:07:09 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38
+[25-Sep-2023 10:07:09 UTC] PHP Warning:  Undefined array key "software_icon" in /home/onemhmce/uptoware.com/index.php on line 38

@@ -43,11 +43,11 @@ if ($diffInDays == 0) {
     $timeDiff = $diffInDays . " days ago";
 }
 
-include '../include/admin_header.php';
+include '../include/dashboard_header.php';
 ?>
 
 
-<?php include '../include/admin_slidenav_head.php'; ?>
+<?php include '../include/dashboard_slidenav_head.php'; ?>
 
 <h1 class="mt-4">Edit User</h1>
 <ol class="breadcrumb mb-4">
@@ -94,6 +94,6 @@ include '../include/admin_header.php';
     </div>
 </div>
 
-<?php include '../include/admin_slidenav_down.php'; ?>
+<?php include '../include/dashboard_slidenav_down.php'; ?>
 
-<?php include '../include/admin_footer.php'; ?>
+<?php include '../include/dashboard_footer.php'; ?>

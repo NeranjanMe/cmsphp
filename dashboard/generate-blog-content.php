@@ -10,10 +10,11 @@ if(!isset($_SESSION["username"])){
 require_once '../database/db_connect.php';
 $db = connect_db();
 
-include '../include/author_header.php';
+include '../include/dashboard_header.php';
 ?>
 
-<?php include '../include/author_slidenav_head.php'; ?>
+$pageTitle = "Generate Blog Content";
+<?php include '../include/dashboard_slidenav_head.php'; ?>
 
         <h1 class="mt-4">Blog Content</h1>
         <ol class="breadcrumb mb-4">
@@ -137,7 +138,7 @@ $(document).ready(function(){
 </style>
                                 
 
-<?php include '../include/author_slidenav_down.php'; ?>
+<?php include '../include/dashboard_slidenav_down.php'; ?>
 
 <script>
 $(document).ready(function() {
@@ -146,6 +147,6 @@ $(document).ready(function() {
 </script>
 
 
-<?php include '../include/author_footer.php'; ?>
+<?php include '../include/dashboard_footer.php'; ?>
 
 

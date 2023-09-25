@@ -16,10 +16,10 @@ $stmt->execute();
 $result = $stmt->get_result();
 $categories = $result->fetch_all(MYSQLI_ASSOC);
 
-include '../include/admin_header.php';
+include '../include/dashboard_header.php';
 ?>
 
-<?php include '../include/admin_slidenav_head.php'; ?>
+<?php include '../include/dashboard_slidenav_head.php'; ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -61,7 +61,7 @@ include '../include/admin_header.php';
     <div class="card-body">
         <!-- New post form -->
         <h2 class="card-title">Add New Post</h2>
-        <form action="../process/process_post.php" method="post">
+        <form action="../process/process_post.php" method="post" enctype="multipart/form-data">
 
         <div class="form-group mt-4">
             <label for="title">Title</label>
@@ -207,6 +207,12 @@ include '../include/admin_header.php';
                 <textarea class="form-control mt-2" id="meta_keyword" name="meta_keyword" rows="2"></textarea>
             </div>
             
+            <div class="form-group mt-4">
+                <label for="postImage">Post Image</label>
+                <input type="file" class="form-control-file" id="postImage" name="postImage">
+            </div>
+
+            
             <div class="form-group">
                 <label for="status">Status</label>
                 <select id="status" name="status" class="form-control" required>
@@ -247,6 +253,6 @@ include '../include/admin_header.php';
 <div id="editor"></div> 
 
 
-<?php include '../include/admin_slidenav_down.php'; ?>
+<?php include '../include/dashboard_slidenav_down.php'; ?>
 
-<?php include '../include/admin_footer.php'; ?>
+<?php include '../include/dashboard_footer.php'; ?>

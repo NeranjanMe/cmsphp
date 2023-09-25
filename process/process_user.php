@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($action === 'delete' && $_SERVER['
 
             if ($stmt->affected_rows > 0) {
                 $_SESSION['success_msg'] = "User successfully Updated!";
-                header("Location: ../admin/users.php");
+                header("Location: ../dashboard/users.php");
                 exit;
             } else {
                 die("Error updating user.");
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($action === 'delete' && $_SERVER['
 
                 if ($stmt->affected_rows > 0) {
                     $_SESSION['success_msg'] = "User successfully Created!";
-                    header("Location: ../admin/users.php");
+                    header("Location: ../dashboard/users.php");
                     exit;
                 } else {
                     die("Error creating user.");
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($action === 'delete' && $_SERVER['
                 } else {
                     $_SESSION['error_msg'] = "Database error: " . $exception->getMessage();
                 }
-                header("Location: ../admin/users-new.php");
+                header("Location: ../dashboard/users-new.php");
                 exit;
             }
             break;
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($action === 'delete' && $_SERVER['
 
             if ($stmt->affected_rows > 0) {
                 $_SESSION['success_msg'] = "User successfully Reset!";
-                    header("Location: ../admin/users.php");
+                    header("Location: ../dashboard/users.php");
                     exit;
             } else {
                 die("Error resetting password.");
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($action === 'delete' && $_SERVER['
                 // Ensure logged-in user doesn't delete their own account
                 if ($user_id == $loggedInUserId) {
                     $_SESSION['error_msg'] = "You cannot delete your own account for security reasons.";
-                    header("Location: ../admin/users.php");
+                    header("Location: ../dashboard/users.php");
                     exit;
                 }
 
@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || ($action === 'delete' && $_SERVER['
                 // Check if a row was deleted
                 if ($stmt->affected_rows > 0) {
                     $_SESSION['success_msg'] = "User successfully deleted!";
-                    header("Location: ../admin/users.php");
+                    header("Location: ../dashboard/users.php");
                     exit;
                 } else {
                     die("Error deleting user.");

@@ -22,19 +22,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = $_POST['status'];
     $author = $_SESSION["username"]; 
     $permalink = $_POST['permalink'];
+    
+    // manage Image
+    if (isset($_FILES['postImage'])) {
+    $uploadDirectory = '../uploads/';
+    $filename = basename($_FILES["postImage"]["name"]);
+    $targetFile = $uploadDirectory . $filename;
+    $imageFileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
+
+    // Check if image file is a actual image or fake image
+    $check = getimagesize($_FILES["postImage"]["tmp_name"]);
+    if($check === false) {
+        die("File is not an image.");
+    }
+
+    // Check if file already exists
+    if (file_exists($targetFile)) {
+        die("Sorry, file already exists.");
+    }
+
+    // Check file size
+    if ($_FILES["postImage"]["size"] > 5000000) { // 5 MB
+        die("Sorry, your file is too large.");
+    }
+
+    // Allow certain file formats
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
+        die("Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
+    }
+
+    // Upload file
+    if (!move_uploaded_file($_FILES["postImage"]["tmp_name"], $targetFile)) {
+        die("Sorry, there was an error uploading your file.");
+    }
+}
+
 
     if (empty($title) || empty($category) || empty($body) || empty($language) || empty($status) || empty($permalink)) {
         die("Required fields are empty");
     }
 
-    $stmt = $db->prepare("INSERT INTO posts (title, category,  body, meta_title, meta_description, meta_keyword, status, author, language, permalink) VALUES (?,  ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param('ssssssssss', $title, $category,  $body, $meta_title, $meta_description, $meta_keyword, $status, $author, $language, $permalink);
+    $stmt = $db->prepare("INSERT INTO posts (title, category, body, meta_title, meta_description, meta_keyword, status, author, language, permalink, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param('sssssssssss', $title, $category, $body, $meta_title, $meta_description, $meta_keyword, $status, $author, $language, $permalink, $filename);
     $stmt->execute();
 
 
     if ($stmt->affected_rows > 0) {
         $_SESSION['success_msg'] = "New Post successfully Added!";
-        header("Location: ../admin/post.php"); // Redirect to the posts page
+        header("Location: ../dashboard/post.php"); // Redirect to the posts page
     } else {
         die("Error adding post");
     }
@@ -52,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->affected_rows > 0) {
         $_SESSION['success_msg'] = "Post successfully Deleted!";
-        header("Location: ../admin/post.php"); // Redirect to the posts page
+        header("Location: ../dashboard/post.php"); // Redirect to the posts page
     } else {
         die("Error deleting post");
     }

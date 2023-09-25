@@ -43,9 +43,9 @@ $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 $draft_posts = $row['draft_posts'];
 
-include '../include/author_header.php'; ?>
+include '../include/dashboard_header.php'; ?>
 
-     <?php include '../include/author_slidenav_head.php'; ?>
+     <?php include '../include/dashboard_slidenav_head.php'; ?>
 
                     
                         <h1 class="mt-4">Dashboard</h1>
@@ -108,5 +108,5 @@ include '../include/author_header.php'; ?>
                         </div>
                     
 
-          <?php include '../include/author_slidenav_down.php'; ?>
-<?php include '../include/author_footer.php'; ?>               
+          <?php include '../include/dashboard_slidenav_down.php'; ?>
+<?php include '../include/dashboard_footer.php'; ?>               

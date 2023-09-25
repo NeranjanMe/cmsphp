@@ -36,9 +36,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-include '../include/admin_header.php';
+include '../include/dashboard_header.php';
 ?>
-<?php include '../include/admin_slidenav_head.php'; ?>
+<?php include '../include/dashboard_slidenav_head.php'; ?>
     <h1 class="mt-4">Edit Author</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
@@ -61,6 +61,6 @@ include '../include/admin_header.php';
             </form>
         </div>
     </div>
-    <?php include '../include/admin_slidenav_down.php'; ?>
+    <?php include '../include/dashboard_slidenav_down.php'; ?>
 
-<?php include '../include/admin_footer.php'; ?>
+<?php include '../include/dashboard_footer.php'; ?>

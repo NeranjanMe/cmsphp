@@ -18,7 +18,7 @@ $domain_name = isset($_POST['domain_name']) ? $_POST['domain_name'] : '';
 // Validate values
 if(empty($site_name) || empty($tag_line) || empty($domain_name)) {
     $_SESSION['error_msg'] = 'All fields are required';
-    header("Location: ../admin/setting-public.php");
+    header("Location: ../dashboard/setting-public.php");
     exit;
 }
 
@@ -45,5 +45,5 @@ $stmt->close();
 $db->close();
 
 // Redirect back to the settings page
-header("Location: ../admin/setting-public.php");
+header("Location: ../dashboard/setting-public.php");
 ?>

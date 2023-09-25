@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# Remove .php extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# Redirect to index.php with the language code
+RewriteRule ^([a-z]{2})/?$ index.php?lang=$1 [L,QSA]
+
+# Handle individual posts with language codes
+RewriteRule ^([a-z]{2})/([a-zA-Z0-9\-]+)/?$ post.php?lang=$1&permalink=$2 [L,QSA]
+
+# Handle English (or root without language prefix)
+RewriteRule ^([a-zA-Z0-9\-]+)/?$ post.php?lang=en&permalink=$1 [L,QSA]

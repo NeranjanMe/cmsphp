@@ -9,7 +9,7 @@ if(isset($_GET['permalink'])){
 }
 
 // Fetch language from the URL
-$lang = isset($_GET['lang']) ? $_GET['lang'] : 'en';  // Default to 'en' if not provided
+$lang = isset($_GET['lang']) ? $_GET['lang'] : 'en'; 
 
 $stmt = $db->prepare("SELECT * FROM posts WHERE language = ? AND permalink = ?");
 $stmt->bind_param('ss', $lang, $permalink);
@@ -18,8 +18,20 @@ $result = $stmt->get_result();
 $post = $result->fetch_assoc();
 
 if (!$post) {
-    die("Post not found.");
+    include 'include/header.php';
+    ?>
+    <div class="container h-100">
+        <div class="row h-100 justify-content-center align-items-center">
+            <div class="col-md-6 text-center">
+                <h1 class="mt-4">The "<?php echo htmlspecialchars($permalink); ?>" Page is not available in this language.</h1>
+            </div>
+        </div>
+    </div>
+    <?php
+    include 'include/footer.php';
+    exit;  
 }
+
 
 include 'include/header.php';
 ?>

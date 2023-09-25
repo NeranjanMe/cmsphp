@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
     if ($stmt->affected_rows > 0) {
         $_SESSION['success_msg'] = "User successfully Updated!";
-        header("Location: ../admin/category.php");
+        header("Location: ../dashboard/category.php");
         exit;
     } else {
         die("Error updating category");
@@ -45,7 +45,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->affected_rows > 0) {
         $_SESSION['success_msg'] = "User successfully Added!";
-        header("Location: ../admin/category.php");
+        header("Location: ../dashboard/category.php");
         exit;
     } else {
         die("Error adding category");
@@ -99,7 +99,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'delete') {
         if ($stmt->affected_rows > 0) {
             $db->commit();
             $_SESSION['success_msg'] = "Category successfully Deleted! and Updated Post to default Category";
-            header("Location: ../admin/category.php");
+            header("Location: ../dashboard/category.php");
             exit;
         } else {
             $db->rollback();

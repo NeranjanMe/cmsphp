@@ -10,23 +10,23 @@ if(!isset($_SESSION["username"])){
 require_once '../database/db_connect.php';
 $db = connect_db();
 
-$pageTitle = "Generate Blog Topic Ideas";
-include '../include/admin_header.php';
+$pageTitle = "Generate Blog Outline";
+include '../include/dashboard_header.php';
 ?>
 
-<?php include '../include/admin_slidenav_head.php'; ?>
+<?php include '../include/dashboard_slidenav_head.php'; ?>
 
-        <h1 class="mt-4">Blog Topic Ideas</h1>
+        <h1 class="mt-4">Blog Outline</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-            <li class="breadcrumb-item active">Blog Topic Ideas</li>
+            <li class="breadcrumb-item active">Blog Outline</li>
         </ol>
         <div class="card mb-4 mt-5">
             <div class="card-body">
 
-            <form id="generate-content-form">
-                <label for="keyword"> Enter your keyword(s):</label><br>
-                <textarea id="keyword" name="keyword" class="form-control" rows="3" cols="50" required></textarea>
+            <form id="generate-outline-form">
+                <label for="topic"> Enter your blog topic:</label><br>
+                <textarea id="topic" name="topic" class="form-control" rows="3" cols="50" required></textarea>
                 <input type="submit" value="Generate" class="btn btn-primary mt-2">
             </form>
 
@@ -53,15 +53,15 @@ var quill = new Quill('#editor', {
 });
 
 $(document).ready(function(){
-    $("#generate-content-form").submit(function(e){
+    $("#generate-outline-form").submit(function(e){
         e.preventDefault();
 
         $('#spinner').show();
 
         $.ajax({
-        url: '../generate/generate_blog_topic_ideas.php',
+        url: '../generate/generate_blog_outline.php',
         type: 'post',
-        data: {keyword: $('#keyword').val()},
+        data: {keyword: $('#topic').val()},
         success: function(data) {
             var response = JSON.parse(data);
             quill.setContents([
@@ -130,7 +130,7 @@ $(document).ready(function(){
 </style>
                                 
 
-<?php include '../include/admin_slidenav_down.php'; ?>
+<?php include '../include/dashboard_slidenav_down.php'; ?>
 
 <script>
 $(document).ready(function() {
@@ -139,6 +139,6 @@ $(document).ready(function() {
 </script>
 
 
-<?php include '../include/admin_footer.php'; ?>
+<?php include '../include/dashboard_footer.php'; ?>
 
 

@@ -24,10 +24,10 @@ $users = $result->fetch_all(MYSQLI_ASSOC);
 
 
 $pageTitle = "Manage Users";
-include '../include/admin_header.php';
+include '../include/dashboard_header.php';
 ?>
 
-<?php include '../include/admin_slidenav_head.php'; ?>
+<?php include '../include/dashboard_slidenav_head.php'; ?>
 
         <h1 class="mt-4">Users</h1>
             <ol class="breadcrumb mb-4">
@@ -94,7 +94,7 @@ include '../include/admin_header.php';
                     </div>
                 </div>
 
-<?php include '../include/admin_slidenav_down.php'; ?>
+<?php include '../include/dashboard_slidenav_down.php'; ?>
 
 <script>
 $(document).ready(function() {
@@ -118,4 +118,4 @@ document.addEventListener('DOMContentLoaded', function() {  // Ensure the DOM is
 });
 </script>
 
-<?php include '../include/admin_footer.php'; ?>
+<?php include '../include/dashboard_footer.php'; ?>

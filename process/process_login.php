@@ -13,7 +13,8 @@ if (empty($username) || empty($password)) {
 }
 
 // Prepared statement to prevent SQL Injection
-$stmt = $db->prepare("SELECT password FROM users WHERE username = ?");
+// Update the SQL to fetch both the password and the role
+$stmt = $db->prepare("SELECT password, role FROM users WHERE username = ?");
 $stmt->bind_param('s', $username);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -23,8 +24,9 @@ $user = $result->fetch_object();
 if ($user && password_verify($password, $user->password)) {
     // Success! User is logged in.
     session_start();
-    $_SESSION['username'] = $username; 
-    header("Location: ../admin/index.php");
+    $_SESSION['username'] = $username;
+    $_SESSION['user_role'] = $user->role;  // Store the role in the session
+    header("Location: ../dashboard/index.php");
     exit;
 } else {
     // Error! Authentication failed.
