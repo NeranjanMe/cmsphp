@@ -10,7 +10,7 @@ if(!isset($_SESSION["username"])){
 require_once '../database/db_connect.php';
 $db = connect_db();
 
-$stmt = $db->prepare("SELECT categories.*, COALESCE(COUNT(posts.id), 0) as total_posts FROM categories LEFT JOIN posts ON categories.name = posts.category GROUP BY categories.id");
+$stmt = $db->prepare("SELECT categories.*, COALESCE(COUNT(posts.id), 0) as total_posts, is_default FROM categories LEFT JOIN posts ON categories.name = posts.category GROUP BY categories.id");
 
 $stmt->execute();
 $result = $stmt->get_result();
@@ -43,6 +43,14 @@ $stmt = $db->prepare("
         categories.id DESC
 ");
 
+if (isset($_GET['edit_id'])) {
+    $stmt = $db->prepare("SELECT * FROM categories WHERE id = ?");
+    $stmt->bind_param('i', $_GET['edit_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $edit_category = $result->fetch_assoc();
+}
+
 $pageTitle = "Manage Categories";
 include '../include/dashboard_header.php';
 ?>
@@ -62,12 +70,20 @@ include '../include/dashboard_header.php';
                             <?php if ($edit_category): ?>
                                     <!-- Edit category form -->
                                     <h2 class="card-title">Edit Category</h2>
-                                    <form action="../process/process_category.php" method="post">
+                                    <form action="../process/process_category.php" method="post" enctype="multipart/form-data">
                                         <input type="hidden" name="id" value="<?php echo $edit_category['id']; ?>">
                                         <div class="form-group">
                                             <label for="name">Category Name</label>
                                             <input type="text" class="form-control" id="name" name="name" value="<?php echo $edit_category['name']; ?>" required>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="image">Category Image</label>
+                                            <input type="file" class="form-control" id="image" name="image">
+                                            <img src="../uploads/categories/<?php echo $edit_category['image']; ?>" alt="Category Image" width="100">
+                                            <small>Upload a new image to replace the existing one.</small>
+                                        </div>
+
+                                        
                                         <button type="submit" class="btn btn-primary mt-4">Save Changes</button>
                                         <a href="category.php" class="btn btn-primary mt-4">Cancel</a>
                                     </form>
@@ -75,13 +91,18 @@ include '../include/dashboard_header.php';
                                 <?php else: ?>
                                     <!-- Add new category form -->
                                     <h2 class="card-title">Add New Category</h2>
-                                    <form action="../process/process_category.php" method="post">
+                                    <form action="../process/process_category.php" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label for="name">New Category Name</label>
                                             <input type="text" class="form-control" id="name" name="name" required>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="image">Category Image</label>
+                                            <input type="file" class="form-control" id="image" name="image">
+                                        </div>
                                         <button type="submit" class="btn btn-primary mt-4">Add New Category</button>
                                     </form>
+
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -107,6 +128,7 @@ include '../include/dashboard_header.php';
                                                 <th>ID</th>
                                                 <th>Name</th>
                                                 <th>Total Post</th>
+                                                <th>Image</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -114,9 +136,9 @@ include '../include/dashboard_header.php';
                                             <?php foreach ($categories as $category): ?>
                                                 <tr>
                                                     <td><?php echo $category['id']; ?></td>
-                                                    <td><?php echo $category['name']; ?></td>
+                                                    <td><?php echo $category['is_default'] == 1 ? $category['name'] . ' (Default Category)' : $category['name']; ?></td>
                                                     <td><?php echo isset($category['total_posts']) ? $category['total_posts'] : '0'; ?></td>
-
+                                                    <td><img src="../uploads/categories/<?php echo $category['image']; ?>" alt="Category Image" width="50"></td> <!-- Display the image -->
                                                     
                                                     <td>
                                                         <a href="category.php?edit_id=<?php echo $category['id']; ?>" class="btn btn-primary">Edit</a>

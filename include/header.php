@@ -11,22 +11,24 @@
         <meta name="author" content="<?php echo $post['author'] ?? ''; ?>" />
         
         <meta property="og:title" content="<?php echo $post['meta_title'] ?? ''; ?>">
-        <meta property="og:site_name" content="Your Site Name"> <!-- Replace 'Your Site Name' -->
-        <meta property="og:url" content="Your Current Page URL"> <!-- Use PHP to get the current URL -->
+        <meta property="og:site_name" content="Your Site Name">
+        <meta property="og:url" content="Your Current Page URL">
         <meta property="og:description" content="<?php echo $post['meta_description'] ?? ''; ?>">
-        <meta property="og:type" content="article"> <!-- Assuming it's an article, adjust if different -->
+        <meta property="og:type" content="article">
         <meta property="og:locale" content="<?php echo isset($post['language']) ? $post['language'] : 'en_US'; ?>" />
         <meta property="og:image" content="<?php echo $post['image'] ?? ''; ?>">
         
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="@YourTwitterHandle"> <!-- Replace '@YourTwitterHandle' -->
+        <meta name="twitter:site" content="@YourTwitterHandle">
         <meta name="twitter:title" content="<?php echo $post['meta_title'] ?? ''; ?>" />
         <meta name="twitter:description" content="<?php echo $post['meta_description'] ?? ''; ?>" />
         <meta name="twitter:image" content="<?php echo $post['image'] ?? ''; ?>">
 
         <title> <?php if (isset($post['title'])) { echo $post['title']; } elseif (isset($pageTitle)) { echo $pageTitle; } else { echo 'Default Blog Title'; } ?> </title>
-        <link rel="icon" type="image/x-icon" href="/uploads/<?php echo isset($post['image']) ? $post['image'] : 'include/assets/favicon.ico'; ?>" />
+        
         <link href="/include/css/styles.css" rel="stylesheet" />
+        
+        <link rel="icon" type="image/x-icon" href="/include/assets/favicon.ico" />
 
     </head>
     

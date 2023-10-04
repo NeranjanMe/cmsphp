@@ -1,5 +1,8 @@
 RewriteEngine On
 
+# Sitemap rule
+RewriteRule ^sitemap\.xml$ /sitemap.php [L]
+
 # Remove .php extension
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f

@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$pageTitle = "Reset Password User";
 include '../include/dashboard_header.php';
 ?>
 <?php include '../include/dashboard_slidenav_head.php'; ?>

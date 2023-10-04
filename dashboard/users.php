@@ -58,7 +58,6 @@ include '../include/dashboard_header.php';
                         <table id="datatablesSimple" class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Role</th>
                                     <th>Username</th>
                                     <th>First Name</th>
@@ -73,7 +72,6 @@ include '../include/dashboard_header.php';
                             <tbody>
                                 <?php foreach ($users as $user): ?>
                                     <tr>
-                                        <td><?= htmlspecialchars($user['id']) ?></td>
                                         <td><?= htmlspecialchars($user['role']) ?></td>
                                         <td><?= htmlspecialchars($user['username']) ?></td>
                                         <td><?= htmlspecialchars($user['first_name']) ?></td>

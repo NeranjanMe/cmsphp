@@ -10,10 +10,11 @@ if(!isset($_SESSION["username"])){
 require_once '../database/db_connect.php';
 $db = connect_db();
 
+$pageTitle = "Generate Blog Content";
 include '../include/dashboard_header.php';
 ?>
 
-$pageTitle = "Generate Blog Content";
+
 <?php include '../include/dashboard_slidenav_head.php'; ?>
 
         <h1 class="mt-4">Blog Content</h1>

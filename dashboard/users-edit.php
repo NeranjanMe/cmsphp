@@ -43,6 +43,7 @@ if ($diffInDays == 0) {
     $timeDiff = $diffInDays . " days ago";
 }
 
+$pageTitle = "Edit User";
 include '../include/dashboard_header.php';
 ?>
 

@@ -26,13 +26,13 @@ if ($user && password_verify($password, $user->password)) {
     session_start();
     $_SESSION['username'] = $username;
     $_SESSION['user_role'] = $user->role;  // Store the role in the session
-    header("Location: ../dashboard/index.php");
+    header("Location: ../dashboard/index");
     exit;
 } else {
     // Error! Authentication failed.
     session_start();
     $_SESSION['error'] = "Invalid username or password";
-    header("Location: ../login.php");
+    header("Location: ../login");
     exit;
 }
 

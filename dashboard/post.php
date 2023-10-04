@@ -17,14 +17,11 @@ $user_role = $_SESSION['user_role'];
 $languageFilter = isset($_GET['language']) ? $_GET['language'] : null;
 
 if ($languageFilter) {
-    // Only query posts of the selected language
-    $stmt = $db->prepare("SELECT * FROM posts WHERE language = ? ORDER BY created_at DESC");
+    $stmt = $db->prepare("SELECT posts.*, users.surname as author_surname FROM posts LEFT JOIN users ON posts.author = users.username WHERE posts.language = ? ORDER BY posts.created_at DESC");
     $stmt->bind_param('s', $languageFilter);
 } else {
-    // Query all posts if no language filter is set
-    $stmt = $db->prepare("SELECT * FROM posts ORDER BY created_at DESC");
+    $stmt = $db->prepare("SELECT posts.*, users.surname as author_surname FROM posts LEFT JOIN users ON posts.author = users.username ORDER BY posts.created_at DESC");
 }
-
 $stmt->execute();
 $result = $stmt->get_result();
 $posts = $result->fetch_all(MYSQLI_ASSOC);
@@ -61,8 +58,6 @@ include '../include/dashboard_slidenav_head.php';
 <!-- Categories table -->
 <div class="card mb-4 mt-5">
     
-    
-
     <div class="card-body">
         <select id="languageFilter" class="form-select mb-2" aria-label="Default select example">
         <option value="" <?= !$languageFilter ? "selected" : "" ?>>All Languages</option>
@@ -84,6 +79,7 @@ include '../include/dashboard_slidenav_head.php';
         <option value="id" <?= $languageFilter === "id" ? "selected" : "" ?>>Indonesian (ID)</option>
         <option value="ko" <?= $languageFilter === "ko" ? "selected" : "" ?>>Korean (KO)</option>
     </select>
+    
         <table id="datatablesSimple" class="table table-striped">
             <thead>
                 <tr>
@@ -109,15 +105,15 @@ include '../include/dashboard_slidenav_head.php';
                     $displayText = '';
                     $displayDate = '';
                     switch ($post['status']) {
-                        case 'publish':
+                        case 'Publish':
                             $displayText = "Published";
                             $displayDate = $post['created_at'];
                             break;
-                        case 'draft':
+                        case 'Draft':
                             $displayText = "Last Modified";
                             $displayDate = $post['updated_at'];
                             break;
-                        case 'schedule':
+                        case 'Schedule':
                             $displayText = "Scheduled";
                             $displayDate = $post['scheduled_date'];
                             break;
@@ -145,11 +141,11 @@ include '../include/dashboard_slidenav_head.php';
                 ?>
                         <td><?= htmlspecialchars($post['id']) ?></td>
                         <td>
-                            <img src="/uploads/<?= htmlspecialchars($post['image']) ?>" alt="<?= htmlspecialchars($post['title']) ?>" style="width: 50px;">
+                            <img src="/uploads/posts/<?= htmlspecialchars($post['image']) ?>" alt="<?= htmlspecialchars($post['title']) ?>" style="width: 50px;">
                         </td>
                         <?php echo "<td>" . htmlspecialchars($langNames[$post['language']]) . "</td>"; ?>
-                        <td><?= htmlspecialchars($post['title']) ?></td>
-                        <td><?= htmlspecialchars($post['author']) ?></td>
+                        <td><?= (strlen($post['title']) > 100) ? htmlspecialchars(substr($post['title'], 0, 90) . "...") : htmlspecialchars($post['title']) ?></td>
+                        <td><?= htmlspecialchars($post['author_surname']) ?></td>
                         <td><?= htmlspecialchars($post['category']) ?></td>
                         
                         
@@ -162,8 +158,6 @@ include '../include/dashboard_slidenav_head.php';
                         // Output the displayText and formattedDate in a new table column
                         echo "<td>" . htmlspecialchars($displayText) . "<br>" . htmlspecialchars($formattedDate) . "</td>";
                         ?>
-                        
-                        
                         
                         <td>
                             <?php 

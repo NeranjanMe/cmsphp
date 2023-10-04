@@ -43,6 +43,7 @@ $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 $draft_posts = $row['draft_posts'];
 
+$pageTitle = "Dashboard";
 include '../include/dashboard_header.php'; ?>
 
      <?php include '../include/dashboard_slidenav_head.php'; ?>
@@ -61,7 +62,7 @@ include '../include/dashboard_header.php'; ?>
                                         <p>Total Posts</p>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="post.php">View Details</a>
+                                        <a class="small text-white stretched-link" href="post">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -74,7 +75,7 @@ include '../include/dashboard_header.php'; ?>
                                         <p>Total Categories</p>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="category.php">View Details</a>
+                                        <a class="small text-white stretched-link" href="category">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -87,7 +88,7 @@ include '../include/dashboard_header.php'; ?>
                                         <p>Published Posts</p>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="post">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -100,7 +101,7 @@ include '../include/dashboard_header.php'; ?>
                                         <p>Draft Posts</p>
                                     </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <a class="small text-white stretched-link" href="post">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>

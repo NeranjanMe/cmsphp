@@ -10,6 +10,7 @@ if(!isset($_SESSION["username"])){
 require_once '../database/db_connect.php';
 $db = connect_db();
 
+$pageTitle = "Add New User";
 include '../include/dashboard_header.php';
 ?>
 

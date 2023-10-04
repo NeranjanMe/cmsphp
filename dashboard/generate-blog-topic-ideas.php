@@ -27,9 +27,10 @@ include '../include/dashboard_header.php';
             <form id="generate-content-form">
                 <label for="keyword"> Enter your keyword(s):</label><br>
                 <textarea id="keyword" name="keyword" class="form-control" rows="3" cols="50" required></textarea>
+                
                 <input type="submit" value="Generate" class="btn btn-primary mt-2">
             </form>
-
+            
 
                 
             </div>

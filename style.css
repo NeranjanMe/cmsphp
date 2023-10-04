@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tangsa:wght@400;500&display=swap');
+body{
+    padding-top: 20px;
+}
+.container{
+    max-width: 1000px;
+    margin: auto;
+    background-color: white;
+}
+*{
+    font-family: 'Noto Sans Tangsa', sans-serif;
+}
+h2{
+    font-weight: 400;
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+}
+.user-action{
+    position: relative;
+    text-align: center;
+    padding: 10px 0px;
+    border-radius: 6px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+input,
+button{
+    font-size: 1rem;
+    outline: none;
+    border-radius: 3px;
+}
+input{
+    width: 25%;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: 1px solid #c6c2c2;
+}
+button{
+    height: 33px;
+    position: relative;
+    top: -1px;
+    border: 0px;
+    background-color: white;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+button:active{
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 1px 3px, rgba(0, 0, 0, 0.12) 0px 1px 2px;
+}
+.img-container{
+    text-align: center;
+    margin-top: 60px;
+}
+.img-container img{
+    margin-left: 40px;
+}

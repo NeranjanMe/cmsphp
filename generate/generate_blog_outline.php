@@ -1,8 +1,26 @@
 <?php
 
-$keyword = $_POST['keyword'];
+include '../database/db_connect.php';  // Include the db connection file
 
-$api_key = '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';
+// Use the function to connect to the database
+$db = connect_db();
+
+// Fetch the API key from the database
+$sql = "SELECT openai FROM api LIMIT 1";
+$result = $db->query($sql);
+
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $api_key = $row['openai'];
+    }
+} else {
+    echo "API key not found in database!";
+    exit;
+}
+
+$db->close();
+
+$keyword = $_POST['keyword'];
 
 $ch = curl_init();
 

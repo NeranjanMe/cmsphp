@@ -21,10 +21,10 @@ include '../include/dashboard_header.php';
 
 <?php include '../include/dashboard_slidenav_head.php'; ?>
 
-<h1 class="mt-4">Public Settings</h1>
+<h1 class="mt-4">Select Default Category</h1>
 <ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-    <li class="breadcrumb-item active">Public Settings</li>
+    <li class="breadcrumb-item"><a href="index">Dashboard</a></li>
+    <li class="breadcrumb-item active">Select Default Category</li>
 </ol>
 
 <?php
@@ -46,17 +46,19 @@ include '../include/dashboard_header.php';
 
 <form action="../process/process_setting_category.php" method="post" id="public-settings-form">
 
-    <h2>Select Default Category</h2>
-    
     <?php foreach ($categories as $category): ?>
-        <label><div class="form-group mt-4">
-            <input type="radio" name="default_category" value="<?= $category['id']; ?>" 
-                <?= $category['is_default'] ? 'checked' : ''; ?>>
-            <?= htmlspecialchars($category['name']); ?></div>
-        </label><br>
-    <?php endforeach; ?>
+    <div class="form-check mt-4">
+        <input class="form-check-input" type="radio" name="default_category" id="category_<?= $category['id']; ?>" value="<?= $category['id']; ?>" <?= $category['is_default'] ? 'checked' : ''; ?>>
+        <label class="form-check-label" for="category_<?= $category['id']; ?>">
+            <?= htmlspecialchars($category['name']); ?>
+            <?php if ($category['is_default']) echo '(Default Category)'; ?>
+        </label>
+    </div>
+<?php endforeach; ?>
+
+
     
-    <input type="submit" class="btn btn-primary mt-2" value="Set Default Category">
+    <input type="submit" class="btn btn-primary mt-4" value="Set Default Category">
     </form>
     </div>
 </div>

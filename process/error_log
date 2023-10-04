@@ -1,21 +1,130 @@
-[25-Sep-2023 10:02:24 UTC] PHP Warning:  move_uploaded_file(../uploads/Global Traffic.png): Failed to open stream: No such file or directory in /home/onemhmce/uptoware.com/process/process_post.php on line 55
-[25-Sep-2023 10:02:24 UTC] PHP Warning:  move_uploaded_file(): Unable to move &quot;/tmp/phpSvq6d5&quot; to &quot;../uploads/Global Traffic.png&quot; in /home/onemhmce/uptoware.com/process/process_post.php on line 55
-[25-Sep-2023 12:40:39 UTC] PHP Warning:  Undefined array key "reference_id" in /home/onemhmce/uptoware.com/process/process_post.php on line 67
-[25-Sep-2023 12:40:39 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:71
+[28-Sep-2023 17:28:53 UTC] PHP Warning:  Undefined array key "image" in /home/onemhmce/uptoware.com/process/process_add_post.php on line 18
+[28-Sep-2023 17:28:53 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_add_post.php on line 20
+[28-Sep-2023 17:30:06 UTC] PHP Warning:  Undefined array key "image" in /home/onemhmce/uptoware.com/process/process_add_post.php on line 18
+[28-Sep-2023 17:30:06 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_add_post.php on line 20
+[28-Sep-2023 17:36:05 UTC] PHP Warning:  Undefined array key "image" in /home/onemhmce/uptoware.com/process/process_add_post.php on line 25
+[28-Sep-2023 17:36:05 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_add_post.php on line 27
+[28-Sep-2023 17:36:05 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_add_post.php:40
 Stack trace:
 #0 {main}
-  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 71
-[25-Sep-2023 12:41:11 UTC] PHP Warning:  Undefined array key "reference_id" in /home/onemhmce/uptoware.com/process/process_post.php on line 67
-[25-Sep-2023 12:41:11 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:71
+  thrown in /home/onemhmce/uptoware.com/process/process_add_post.php on line 40
+[28-Sep-2023 17:37:38 UTC] PHP Warning:  Undefined variable $db in /home/onemhmce/uptoware.com/process/process_add_post.php on line 53
+[28-Sep-2023 17:37:38 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/onemhmce/uptoware.com/process/process_add_post.php:53
 Stack trace:
 #0 {main}
-  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 71
-[25-Sep-2023 12:43:52 UTC] PHP Warning:  Undefined array key "reference_id" in /home/onemhmce/uptoware.com/process/process_post.php on line 67
-[25-Sep-2023 12:43:52 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:71
+  thrown in /home/onemhmce/uptoware.com/process/process_add_post.php on line 53
+[28-Sep-2023 17:38:07 UTC] PHP Warning:  Undefined variable $db in /home/onemhmce/uptoware.com/process/process_add_post.php on line 53
+[28-Sep-2023 17:38:07 UTC] PHP Fatal error:  Uncaught Error: Call to a member function prepare() on null in /home/onemhmce/uptoware.com/process/process_add_post.php:53
 Stack trace:
 #0 {main}
-  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 71
-[25-Sep-2023 12:46:16 UTC] PHP Warning:  Undefined array key "reference_id" in /home/onemhmce/uptoware.com/process/process_post.php on line 76
-[25-Sep-2023 12:58:02 UTC] PHP Warning:  Undefined array key "reference_id" in /home/onemhmce/uptoware.com/process/process_post.php on line 82
-[25-Sep-2023 14:41:48 UTC] PHP Warning:  Undefined array key "reference_id" in /home/onemhmce/uptoware.com/process/process_post.php on line 88
-[25-Sep-2023 14:43:46 UTC] PHP Warning:  Undefined array key "reference_id" in /home/onemhmce/uptoware.com/process/process_post.php on line 88
+  thrown in /home/onemhmce/uptoware.com/process/process_add_post.php on line 53
+[28-Sep-2023 17:47:20 UTC] PHP Warning:  Undefined array key "image" in /home/onemhmce/uptoware.com/process/process_post.php on line 92
+[28-Sep-2023 17:47:20 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 18
+[28-Sep-2023 17:47:20 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 22
+[28-Sep-2023 17:52:19 UTC] PHP Warning:  Undefined array key "image" in /home/onemhmce/uptoware.com/process/process_post.php on line 89
+[28-Sep-2023 17:52:19 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 18
+[28-Sep-2023 17:52:19 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 22
+[28-Sep-2023 17:52:56 UTC] PHP Warning:  Undefined array key "image" in /home/onemhmce/uptoware.com/process/process_post.php on line 89
+[28-Sep-2023 17:52:56 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 18
+[28-Sep-2023 17:52:56 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 22
+[28-Sep-2023 17:55:07 UTC] PHP Warning:  Undefined array key "image" in /home/onemhmce/uptoware.com/process/process_post.php on line 95
+[28-Sep-2023 17:55:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 23
+[28-Sep-2023 17:55:07 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 27
+[28-Sep-2023 17:56:09 UTC] PHP Warning:  Undefined array key "image" in /home/onemhmce/uptoware.com/process/process_post.php on line 89
+[28-Sep-2023 17:56:09 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 18
+[28-Sep-2023 17:56:09 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 22
+[28-Sep-2023 17:57:00 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:92
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 92
+[28-Sep-2023 17:57:52 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:92
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 92
+[28-Sep-2023 17:58:54 UTC] PHP Warning:  unlink(../uploads/../uploads/posts/): Is a directory in /home/onemhmce/uptoware.com/process/process_post.php on line 131
+[28-Sep-2023 17:58:58 UTC] PHP Warning:  unlink(../uploads/../uploads/posts/): Is a directory in /home/onemhmce/uptoware.com/process/process_post.php on line 131
+[28-Sep-2023 17:59:06 UTC] PHP Warning:  unlink(../uploads/woman-8180638_1280.jpg): No such file or directory in /home/onemhmce/uptoware.com/process/process_post.php on line 131
+[28-Sep-2023 17:59:34 UTC] PHP Warning:  Undefined array key "postImage" in /home/onemhmce/uptoware.com/process/process_post.php on line 71
+[28-Sep-2023 17:59:34 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 71
+[28-Sep-2023 17:59:34 UTC] PHP Warning:  Undefined array key "postImage" in /home/onemhmce/uptoware.com/process/process_post.php on line 73
+[28-Sep-2023 17:59:34 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 73
+[28-Sep-2023 17:59:34 UTC] PHP Warning:  Undefined array key "postImage" in /home/onemhmce/uptoware.com/process/process_post.php on line 85
+[28-Sep-2023 17:59:34 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 85
+[28-Sep-2023 18:47:25 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:99
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 99
+[28-Sep-2023 18:48:57 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:99
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 99
+[28-Sep-2023 18:50:06 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:99
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 99
+[28-Sep-2023 18:51:33 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:99
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 99
+[28-Sep-2023 18:52:56 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:98
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 98
+[28-Sep-2023 18:54:53 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:98
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 98
+[28-Sep-2023 18:56:48 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:98
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 98
+[28-Sep-2023 18:59:22 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:98
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 98
+[28-Sep-2023 18:59:44 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:98
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 98
+[04-Oct-2023 08:08:10 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:98
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 98
+[04-Oct-2023 11:53:07 UTC] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/onemhmce/uptoware.com/process/process_post.php:40
+Stack trace:
+#0 /home/onemhmce/uptoware.com/process/process_post.php(40): getimagesize()
+#1 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 40
+[04-Oct-2023 12:04:30 UTC] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/onemhmce/uptoware.com/process/process_post.php:40
+Stack trace:
+#0 /home/onemhmce/uptoware.com/process/process_post.php(40): getimagesize()
+#1 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 40
+[04-Oct-2023 12:05:33 UTC] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/onemhmce/uptoware.com/process/process_post.php:40
+Stack trace:
+#0 /home/onemhmce/uptoware.com/process/process_post.php(40): getimagesize()
+#1 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 40
+[04-Oct-2023 12:10:39 UTC] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/onemhmce/uptoware.com/process/process_post.php:41
+Stack trace:
+#0 /home/onemhmce/uptoware.com/process/process_post.php(41): getimagesize()
+#1 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 41
+[04-Oct-2023 12:14:47 UTC] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home/onemhmce/uptoware.com/process/process_post.php:41
+Stack trace:
+#0 /home/onemhmce/uptoware.com/process/process_post.php(41): getimagesize()
+#1 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 41
+[04-Oct-2023 12:18:32 UTC] PHP Warning:  Undefined variable $currentPost in /home/onemhmce/uptoware.com/process/process_post.php on line 32
+[04-Oct-2023 12:18:32 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 32
+[04-Oct-2023 12:18:32 UTC] PHP Warning:  unlink(../uploads/posts/): Is a directory in /home/onemhmce/uptoware.com/process/process_post.php on line 34
+[04-Oct-2023 12:25:04 UTC] PHP Warning:  Undefined variable $currentPost in /home/onemhmce/uptoware.com/process/process_post.php on line 33
+[04-Oct-2023 12:25:04 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 33
+[04-Oct-2023 12:25:04 UTC] PHP Warning:  unlink(../uploads/posts/): Is a directory in /home/onemhmce/uptoware.com/process/process_post.php on line 35
+[04-Oct-2023 12:25:04 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/onemhmce/uptoware.com/process/process_post.php:115
+Stack trace:
+#0 {main}
+  thrown in /home/onemhmce/uptoware.com/process/process_post.php on line 115
+[04-Oct-2023 12:27:25 UTC] PHP Warning:  Undefined variable $currentPost in /home/onemhmce/uptoware.com/process/process_post.php on line 33
+[04-Oct-2023 12:27:25 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/process/process_post.php on line 33
+[04-Oct-2023 12:27:25 UTC] PHP Warning:  unlink(../uploads/posts/): Is a directory in /home/onemhmce/uptoware.com/process/process_post.php on line 35

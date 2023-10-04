@@ -1,9 +1,26 @@
 <?php
 
+include '../database/db_connect.php';  // Include the db connection file
+
+// Use the function to connect to the database
+$db = connect_db();
+
+// Fetch the API key from the database
+$sql = "SELECT openai FROM api LIMIT 1";
+$result = $db->query($sql);
+
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $api_key = $row['openai'];
+    }
+} else {
+    echo "API key not found in database!";
+    exit;
+}
+
+$db->close();
+
 $keyword = $_POST['keyword'];
-
-$api_key = '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';
-
 $ch = curl_init();
 
 curl_setopt($ch, CURLOPT_URL, 'https://api.openai.com/v1/engines/text-davinci-002/completions');
@@ -17,7 +34,7 @@ $headers[] = 'Authorization: Bearer ' . $api_key;
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 $data = json_encode([
-    'prompt' => "Give me blog topics ideas Given Keywords. List down 5 ideas. with number list. Don't include duplicate. Keyword is " . $keyword,
+    'prompt' => "Give me blog topics ideas Given Keywords. List dow ideas. with number list. Don't include duplicate. Keyword is " . $keyword,
     'max_tokens' => 500
 ]);
 
