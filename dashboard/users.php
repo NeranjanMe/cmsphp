@@ -34,11 +34,15 @@ include '../include/dashboard_header.php';
                 <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
                 <li class="breadcrumb-item active">Users</li>
             </ol>
+            <?php if ($_SESSION["user_role"] == "Admin"): ?>
             <div class="card mb-4 mt-5">
                 <div class="card-body">
-                    <a href="users-new.php" class="btn btn-primary">Add New User</a>
+                    
+                        <a href="users-new.php" class="btn btn-primary">Add New User</a>
+                    
                 </div>
             </div>
+            <?php endif; ?>
 
             <?php
                 if (isset($_SESSION['error_msg'])) {
@@ -81,10 +85,15 @@ include '../include/dashboard_header.php';
                                         <td><?= htmlspecialchars($user['created_date']) ? date('Y-m-d H:i:s', strtotime($user['created_date'])) : 'N/A' ?></td>
                                         <td><?= htmlspecialchars($user['total_posts']) ?></td>
                                         <td>
-                                        <a href="users-edit.php?id=<?= $user['id'] ?>" class="btn btn-info">Edit</a>
-                                        <a href="../process/process_user.php?action=delete&id=<?= $user['id'] ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
-                                        <a href="users-reset.php?id=<?= $user['id'] ?>" class="btn btn-warning">Reset Password</a>
-                                    </td>
+                                            <?php if ($_SESSION["user_role"] == "Admin"): ?>
+                                                <a href="users-edit.php?id=<?= $user['id'] ?>" class="btn btn-info">Edit</a>
+                                                <a href="../process/process_user.php?action=delete&id=<?= $user['id'] ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                                                <a href="users-reset.php?id=<?= $user['id'] ?>" class="btn btn-warning">Reset Password</a>
+                                            <?php else: ?>
+                                                <p>No actions available</p>
+                                            <?php endif; ?>
+                                        </td>
+
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

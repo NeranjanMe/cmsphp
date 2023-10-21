@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'include/header.php'; 
+
 
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
@@ -49,6 +49,9 @@ if (isset($_SESSION['isCorrect'])) {
 
 $error_message = $_SESSION['error'] ?? '';
 unset($_SESSION['error']);
+
+$pageTitle = "Answer Security Questions";
+include 'include/header.php'; 
 ?>
 
 <div class="container mt-5">

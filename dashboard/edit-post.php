@@ -95,7 +95,7 @@ include '../include/dashboard_header.php';
                 <select id="category" name="category" class="form-control mt-2" required>
                     <option value="">Select a category</option>
                     <?php foreach ($categories as $category): ?>
-                        <option value="<?= htmlspecialchars($category['name']) ?>" <?= $category['name'] === $postDetails['category'] ? 'selected' : '' ?>><?= htmlspecialchars($category['name']) ?></option>
+                        <option value="<?= htmlspecialchars($category['slug']) ?>" <?= $category['slug'] === $postDetails['category'] ? 'selected' : '' ?>><?= htmlspecialchars($category['name']) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

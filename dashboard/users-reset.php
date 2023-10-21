@@ -6,7 +6,11 @@ if(!isset($_SESSION["username"])){
     header("Location: ../login.php");
     exit;
 }
-
+if ($_SESSION['user_role'] !== 'Admin') {
+    $_SESSION['error_msg'] = "You don't have permission to access this page.";
+    header("Location: ../dashboard/index.php");
+    exit;
+}
 $db = connect_db();
 
 if (isset($_GET['id'])) {
@@ -40,10 +44,10 @@ $pageTitle = "Reset Password User";
 include '../include/dashboard_header.php';
 ?>
 <?php include '../include/dashboard_slidenav_head.php'; ?>
-    <h1 class="mt-4">Edit Author</h1>
+    <h1 class="mt-4">Reset Password User</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-        <li class="breadcrumb-item active">Edit Author</li>
+        <li class="breadcrumb-item active">Reset Password User</li>
     </ol>
     <div class="card mb-4 mt-5">
         <div class="card-body">

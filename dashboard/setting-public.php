@@ -22,7 +22,11 @@ if(!isset($_SESSION["username"])){
     header("Location: ../login.php");
     exit;
 }
-
+if ($_SESSION['user_role'] !== 'Admin') {
+    $_SESSION['error_msg'] = "You don't have permission to access this page.";
+    header("Location: ../dashboard/index.php");
+    exit;
+}
 require_once '../database/db_connect.php';
 $db = connect_db();
 
@@ -78,7 +82,7 @@ include '../include/dashboard_header.php';
             
             <?php if (!empty($settings['sitelogo'])): ?>
                 <div class="mb-4">
-                    <img src="<?php echo htmlspecialchars($settings['sitelogo']); ?>" alt="Site Logo" style="max-width: 200px;">
+                    <img src="../uploads/logos/<?php echo htmlspecialchars($settings['sitelogo']); ?>" alt="Site Logo" style="max-width: 200px;">
                 </div>
             <?php endif; ?>
 

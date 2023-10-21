@@ -10,6 +10,8 @@ if(!isset($_SESSION["username"])){
     exit;
 }
 
+
+
 // Get the user's role from the session
 $user_role = $_SESSION['user_role'];
 
@@ -17,10 +19,10 @@ $user_role = $_SESSION['user_role'];
 $languageFilter = isset($_GET['language']) ? $_GET['language'] : null;
 
 if ($languageFilter) {
-    $stmt = $db->prepare("SELECT posts.*, users.surname as author_surname FROM posts LEFT JOIN users ON posts.author = users.username WHERE posts.language = ? ORDER BY posts.created_at DESC");
+    $stmt = $db->prepare("SELECT posts.*, users.surname as author_surname, categories.slug as category_slug FROM posts LEFT JOIN users ON posts.author = users.username LEFT JOIN categories ON posts.category = categories.name WHERE posts.language = ? ORDER BY posts.created_at DESC");
     $stmt->bind_param('s', $languageFilter);
 } else {
-    $stmt = $db->prepare("SELECT posts.*, users.surname as author_surname FROM posts LEFT JOIN users ON posts.author = users.username ORDER BY posts.created_at DESC");
+    $stmt = $db->prepare("SELECT posts.*, users.surname as author_surname, categories.slug as category_slug FROM posts LEFT JOIN users ON posts.author = users.username LEFT JOIN categories ON posts.category = categories.name ORDER BY posts.created_at DESC");
 }
 $stmt->execute();
 $result = $stmt->get_result();
@@ -147,6 +149,7 @@ include '../include/dashboard_slidenav_head.php';
                         <td><?= (strlen($post['title']) > 100) ? htmlspecialchars(substr($post['title'], 0, 90) . "...") : htmlspecialchars($post['title']) ?></td>
                         <td><?= htmlspecialchars($post['author_surname']) ?></td>
                         <td><?= htmlspecialchars($post['category']) ?></td>
+
                         
                         
                         <td><?= htmlspecialchars($post['status']) ?></td>

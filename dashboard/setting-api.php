@@ -23,6 +23,12 @@ if(!isset($_SESSION["username"])){
     exit;
 }
 
+if ($_SESSION['user_role'] !== 'Admin') {
+    $_SESSION['error_msg'] = "You don't have permission to access this page.";
+    header("Location: ../dashboard/index.php");
+    exit;
+}
+
 require_once '../database/db_connect.php';
 $db = connect_db();
 

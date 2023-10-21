@@ -1,3 +1,8 @@
 [26-Sep-2023 18:34:28 UTC] PHP Warning:  Attempt to read property "num_rows" on bool in /home/onemhmce/uptoware.com/generate/generate_image.php on line 15
 [26-Sep-2023 18:35:01 UTC] PHP Warning:  Attempt to read property "num_rows" on bool in /home/onemhmce/uptoware.com/generate/generate_image.php on line 15
 [26-Sep-2023 18:35:55 UTC] PHP Warning:  Attempt to read property "num_rows" on bool in /home/onemhmce/uptoware.com/generate/generate_image.php on line 15
+[07-Oct-2023 08:05:27 UTC] PHP Fatal error:  Cannot use Orhanerday\OpenAi\OpenAi as OpenAi because the name is already in use in /home/onemhmce/uptoware.com/generate/generate_comment_reply.php on line 51
+[07-Oct-2023 08:07:30 UTC] PHP Warning:  Attempt to read property "choices" on string in /home/onemhmce/uptoware.com/generate/generate_comment_reply.php on line 41
+[07-Oct-2023 08:07:30 UTC] PHP Warning:  Trying to access array offset on value of type null in /home/onemhmce/uptoware.com/generate/generate_comment_reply.php on line 41
+[07-Oct-2023 08:07:30 UTC] PHP Warning:  Attempt to read property "text" on null in /home/onemhmce/uptoware.com/generate/generate_comment_reply.php on line 41
+[07-Oct-2023 11:21:41 UTC] PHP Warning:  Undefined array key "keyword" in /home/onemhmce/uptoware.com/generate/generate_blog_title.php on line 23

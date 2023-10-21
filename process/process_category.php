@@ -11,9 +11,9 @@ if (!isset($_SESSION["username"])) {
 $db = connect_db();
 
 function generateSlug($string) {
-    $slug = strtolower($string);           // Convert the string to lowercase
-    $slug = preg_replace("/[^a-z0-9\s]/", "", $slug);  // Remove any characters that are not alphanumeric or spaces
-    $slug = str_replace(" ", "-", $slug);  // Replace spaces with dashes
+    $slug = strtolower($string);
+    $slug = preg_replace("/[^a-z0-9\s]/", "", $slug);
+    $slug = str_replace(" ", "-", $slug);
     return $slug;
 }
 
@@ -38,6 +38,8 @@ function uploadImage($image, $categoryName) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $id = $_POST['id'];
     $name = $_POST['name'];
+    $slug = $_POST['slug'];
+    $description = $_POST['description'];
 
     if (empty($name)) {
         die("Category name is required");
@@ -46,14 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     if ($_FILES['image']['size'] > 0) { // if a new image is uploaded
         $imageFilename = uploadImage($_FILES['image'], $name);
         if ($imageFilename) {
-            $stmt = $db->prepare("UPDATE categories SET name = ?, image = ? WHERE id = ?");
-            $stmt->bind_param('ssi', $name, $imageFilename, $id);
+             $stmt = $db->prepare("UPDATE categories SET name = ?, slug = ?, description = ? WHERE id = ?");
+    $stmt->bind_param('sssi', $name, $slug, $description, $id);
         } else {
             die("Error uploading image");
         }
     } else {
-        $stmt = $db->prepare("UPDATE categories SET name = ? WHERE id = ?");
-        $stmt->bind_param('si', $name, $id);
+        $stmt = $db->prepare("UPDATE categories SET name = ?, slug = ?, description = ? WHERE id = ?");
+    $stmt->bind_param('sssi', $name, $slug, $description, $id);
     }
 
     $stmt->execute();
@@ -69,6 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 // Add new category
 elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
+    $slug = generateSlug($name);
+    $description = $_POST['description'];
 
     if (empty($name)) {
         die("Category name is required");
@@ -76,8 +80,8 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $imageFilename = uploadImage($_FILES['image'], $name);
     if ($imageFilename) {
-        $stmt = $db->prepare("INSERT INTO categories (name, image) VALUES (?, ?)");
-        $stmt->bind_param('ss', $name, $imageFilename);
+        $stmt = $db->prepare("INSERT INTO categories (name, slug, image, description) VALUES (?, ?, ?, ?)");
+$stmt->bind_param('ssss', $name, $slug, $imageFilename, $description);
     } else {
         die("Error uploading image");
     }
@@ -94,7 +98,6 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } 
 // Delete a category
 elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'delete') {
-
     $id = $_GET['id'];
 
     if (empty($id)) {
@@ -102,14 +105,13 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'delete') {
     }
 
     // Check if the category to be deleted is the default category
-    $stmt = $db->prepare("SELECT is_default FROM categories WHERE id = ?");
+    $stmt = $db->prepare("SELECT is_default, name, image FROM categories WHERE id = ?");
     $stmt->bind_param('i', $id);
     $stmt->execute();
     $result = $stmt->get_result();
     $category = $result->fetch_assoc();
 
     if ($category['is_default'] == 1) {
-        // It's the default category, so do not allow deletion
         $_SESSION['error_msg'] = "Cannot delete the default category. If you want to delete the default category, you must change the default category first.";
         header("Location: ../dashboard/category.php");
         exit;
@@ -117,23 +119,31 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'delete') {
 
     if ($category) {
         $categoryName = $category['name'];
+        $categorySlugToDelete = generateSlug($categoryName); // Generate the slug of the category to be deleted
+        $imageFilename = $category['image'];
+        
+        // Delete the image file from the server
+        if ($imageFilename) {
+            $imagePath = "../uploads/categories/" . $imageFilename;
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
 
-        // Fetch the default category name
-        $stmt = $db->prepare("SELECT name FROM categories WHERE is_default = 1");
+        // Fetch the default category slug
+        $stmt = $db->prepare("SELECT slug FROM categories WHERE is_default = 1");
         $stmt->execute();
         $result = $stmt->get_result();
         $defaultCategory = $result->fetch_assoc();
+        $defaultCategorySlug = $defaultCategory['slug'];
 
         if (!$defaultCategory) {
-            $db->rollback();
             die("Default category not found");
         }
 
-        $defaultCategoryName = $defaultCategory['name'];
-
-        // Update posts set to this category to the default category
+        // Update posts set to this category to the default category using the slug
         $stmt = $db->prepare("UPDATE posts SET category = ? WHERE category = ?");
-        $stmt->bind_param('ss', $defaultCategoryName, $categoryName);
+        $stmt->bind_param('ss', $defaultCategorySlug, $categorySlugToDelete);
         $stmt->execute();
 
         // Now, delete the category
@@ -142,16 +152,13 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'delete') {
         $stmt->execute();
 
         if ($stmt->affected_rows > 0) {
-            $db->commit();
             $_SESSION['success_msg'] = "Category successfully Deleted!";
             header("Location: ../dashboard/category.php");
             exit;
         } else {
-            $db->rollback();
             die("Error deleting category");
         }
     } else {
-        $db->rollback();
         die("Category not found");
     }
 }

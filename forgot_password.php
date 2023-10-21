@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+$pageTitle = "Forgot Password";
 include 'include/header.php'; 
 ?>
 

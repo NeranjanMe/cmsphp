@@ -16,10 +16,12 @@ $stmt->execute();
 $result = $stmt->get_result();
 $categories = $result->fetch_all(MYSQLI_ASSOC);
 
+
+$pageTitle = "Add New Post";
 include '../include/dashboard_header.php';
+include '../include/dashboard_slidenav_head.php';
 ?>
 
-<?php include '../include/dashboard_slidenav_head.php'; ?>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -77,7 +79,7 @@ include '../include/dashboard_header.php';
                 <select id="category" name="category" class="form-control mt-2" required>
                     <option value="">Select a category</option>
                     <?php foreach ($categories as $category): ?>
-                        <option value="<?= htmlspecialchars($category['name']) ?>"><?= htmlspecialchars($category['name']) ?></option>
+                        <option value="<?= htmlspecialchars($category['slug']) ?>"><?= htmlspecialchars($category['name']) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

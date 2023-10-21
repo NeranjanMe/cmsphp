@@ -1,6 +1,16 @@
 <?php
 require_once '../database/db_connect.php';
+require 'vendor/autoload.php';
+
+use Google\Cloud\TextToSpeech\V1\TextToSpeechClient;
+use Google\Cloud\TextToSpeech\V1\VoiceSelectionParams;
+use Google\Cloud\TextToSpeech\V1\AudioConfig;
+use Google\Cloud\TextToSpeech\V1\SsmlVoiceGender;
+use Google\Cloud\TextToSpeech\V1\AudioEncoding;
+use Google\Cloud\TextToSpeech\V1\SynthesisInput;
+
 session_start();
+
 
 // Check if the user is logged in, otherwise redirect to login page
 if(!isset($_SESSION["username"])){
@@ -8,7 +18,67 @@ if(!isset($_SESSION["username"])){
     exit;
 }
 
+// Connect to the database and store the connection in the variable $db
 $db = connect_db();
+
+// Function to generate a URL-friendly slug from a given string
+function generateSlug($string) {
+    // Convert the string to lowercase
+    $slug = strtolower($string);
+    
+    // Remove characters other than letters, numbers, spaces, and hyphens
+    $slug = preg_replace("/[^a-z0-9\s-]/", "", $slug);
+    
+    // Replace spaces (and possible multiple spaces) with hyphens
+    $slug = preg_replace("/[\s]+/", "-", $slug);
+    
+    return $slug; // Return the generated slug
+}
+
+// Function to generate an audio file from the provided content using Google's Text-to-Speech API
+function generateAudio($content, $title) {
+    // Set the path to the Google Cloud Service Account JSON key for authentication
+    putenv('GOOGLE_APPLICATION_CREDENTIALS=service-account.json');
+
+    // Initialize the TextToSpeech client
+    $textToSpeechClient = new TextToSpeechClient();
+
+    // Strip any HTML tags from the content
+    $inputText = strip_tags($content);
+    
+    // Prepare the synthesis input with the cleaned text
+    $input = new SynthesisInput();
+    $input->setText($inputText);
+
+    // Define the voice properties, including language and gender
+    $voice = new VoiceSelectionParams([
+        'language_code' => 'en-US',
+        'ssml_gender' => SsmlVoiceGender::FEMALE
+    ]);
+    
+    // Configure the audio output properties, in this case, MP3 format
+    $audioConfig = new AudioConfig([
+        'audio_encoding' => AudioEncoding::MP3
+    ]);
+
+    // Generate the audio from the given text using the specified configurations
+    $response = $textToSpeechClient->synthesizeSpeech($input, $voice, $audioConfig);
+
+    // Create a filename for the audio based on the post's title
+    $audioFilename = strtolower(str_replace(' ', '-', $title)) . '.mp3';
+
+    // Save the generated audio content to the specified file
+    $file = fopen('../uploads/text-to-voice/' . $audioFilename, 'w');
+    fwrite($file, $response->getAudioContent());
+    fclose($file);
+
+    // Close the TextToSpeech client connection
+    $textToSpeechClient->close();
+
+    // Return the generated audio file's name
+    return $audioFilename;
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Fetch POST data
@@ -24,6 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $author = $_SESSION["username"]; 
     $permalink = $_POST['permalink'];
     $filename = ""; // Initialize filename
+    $audioPath = generateAudio($body, $title);
+    $audioFilename = generateAudio($body, $title);
     
         // Upload Image
         if (isset($_FILES['postImage']) && $_FILES['postImage']['error'] == UPLOAD_ERR_OK) {
@@ -31,12 +103,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $imageFileType = strtolower(pathinfo($_FILES["postImage"]["name"], PATHINFO_EXTENSION));
             
             $oldImagePath = "../uploads/posts/" . $currentPost['image'];
-    if (file_exists($oldImagePath)) {
-        unlink($oldImagePath);
-    }
-            
-            // Convert title to lowercase, replace spaces with hyphens
-            $modifiedTitle = strtolower(str_replace(' ', '-', $title));
+        if (file_exists($oldImagePath)) {
+            unlink($oldImagePath);
+        }
+          
+            // Use the generateSlug function to convert the title to a slug
+            $modifiedTitle = generateSlug($title);
             $uniqueNumber = time(); // Current timestamp for uniqueness
             
             // Create the new filename
@@ -84,35 +156,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
         // Check if post_id is set for update
     if (isset($_POST['post_id']) && !empty($_POST['post_id'])) {
-    $post_id = $_POST['post_id'];
-
-    // Fetch the current image filename from the database
-    $imgStmt = $db->prepare("SELECT image FROM posts WHERE id = ?");
+        
+        $post_id = $_POST['post_id'];
+    // Fetch the current image and audio filenames from the database
+    $imgStmt = $db->prepare("SELECT image, texttovoice FROM posts WHERE id = ?");
     $imgStmt->bind_param('i', $post_id);
     $imgStmt->execute();
     $imgResult = $imgStmt->get_result();
     $currentPost = $imgResult->fetch_assoc();
+
+
 
     // If no new image is uploaded, use the existing filename
     if (empty($filename) && isset($currentPost['image'])) {
         $filename = $currentPost['image'];
     }
 
+    // Delete the old audio file
+    $oldAudioPath = '../uploads/text-to-voice/' . $currentPost['texttovoice'];
+    if (file_exists($oldAudioPath)) {
+        unlink($oldAudioPath);
+    }
+
+    // Generate new audio file
+    $audioFilename = generateAudio($body, $title);
+
     // Update post
-    $stmt = $db->prepare("UPDATE posts SET title=?, category=?, body=?, meta_title=?, meta_description=?, meta_keyword=?, status=?, author=?, language=?, permalink=?, image=?, scheduled_date=?, mainkeyword=? WHERE id=?");
-    $stmt->bind_param('sssssssssssssi', $title, $category, $body, $meta_title, $meta_description, $meta_keyword, $status, $author, $language, $permalink, $filename, $scheduled_date, $main_keyword, $post_id);
+    $stmt = $db->prepare("UPDATE posts SET title=?, category=?, body=?, meta_title=?, meta_description=?, meta_keyword=?, status=?, author=?, language=?, permalink=?, image=?, scheduled_date=?, mainkeyword=?, texttovoice=? WHERE id=?");
+    $stmt->bind_param('ssssssssssssssi', $title, $category, $body, $meta_title, $meta_description, $meta_keyword, $status, $author, $language, $permalink, $filename, $scheduled_date, $main_keyword, $audioFilename, $post_id);
     $stmt->execute();
 
-        if ($stmt->affected_rows > 0) {
-            $_SESSION['success_msg'] = "Post successfully Updated!";
-            header("Location: ../dashboard/post.php"); // Redirect to the posts page
-        } else {
-            die("Error updating post");
-        }
+    if ($stmt->affected_rows > 0) {
+        $_SESSION['success_msg'] = "Post successfully Updated!";
+        header("Location: ../dashboard/post.php"); // Redirect to the posts page
+    } else {
+        die("Error updating post");
+    }
     } else {
         // Insert new post
-        $stmt = $db->prepare("INSERT INTO posts (title, category, body, meta_title, meta_description, meta_keyword, status, author, language, permalink, image, scheduled_date, mainkeyword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('sssssssssssss', $title, $category, $body, $meta_title, $meta_description, $meta_keyword, $status, $author, $language, $permalink, $filename, $scheduled_date, $main_keyword);
+        $stmt = $db->prepare("INSERT INTO posts (title, category, body, meta_title, meta_description, meta_keyword, status, author, language, permalink, image, scheduled_date, mainkeyword, texttovoice) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssssssssssssss', $title, $category, $body, $meta_title, $meta_description, $meta_keyword, $status, $author, $language, $permalink, $filename, $scheduled_date, $main_keyword, $audioFilename);
         $stmt->execute();
 
         if ($stmt->affected_rows > 0) {
@@ -131,8 +214,8 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'delete') {
         die("Post ID is required");
     }
 
-    // Step 1: Retrieve the filename of the image associated with the post
-    $imgStmt = $db->prepare("SELECT image FROM posts WHERE id = ?");
+    // Step 1: Retrieve the filename of the image and audio associated with the post
+    $imgStmt = $db->prepare("SELECT image, texttovoice FROM posts WHERE id = ?");
     $imgStmt->bind_param('i', $id);
     $imgStmt->execute();
     $imgResult = $imgStmt->get_result();
@@ -143,26 +226,32 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'delete') {
     }
 
     $filename = $post['image'];
+    $audioFilename = $post['texttovoice'];
 
     // Step 2: Delete the post from the database
     $stmt = $db->prepare("DELETE FROM posts WHERE id = ?");
     $stmt->bind_param('i', $id);
     $stmt->execute();
 
+    // Step 3: Delete the associated audio file from the server
+    $audioPath = '../uploads/text-to-voice/' . $audioFilename;
+    if (file_exists($audioPath)) {
+        unlink($audioPath);
+    }
+
     if ($stmt->affected_rows > 0) {
-        // Step 3: Delete the associated image from the server
+        // Step 4: Delete the associated image from the server
         $filePath = "../uploads/posts/" . $filename;
 
         if (file_exists($filePath)) {
             unlink($filePath);
         }
 
-        $_SESSION['success_msg'] = "Post and its associated image successfully Deleted!";
+        $_SESSION['success_msg'] = "Post and its associated image and audio successfully Deleted!";
         header("Location: ../dashboard/post.php"); // Redirect to the posts page
     } else {
         die("Error deleting post");
     }
-} else {
-    die("Invalid request");
 }
+
 ?>

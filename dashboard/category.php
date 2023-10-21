@@ -63,49 +63,65 @@ include '../include/dashboard_header.php';
                             <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
                             <li class="breadcrumb-item active">Category</li>
                         </ol>
+                        <?php if ($_SESSION["user_role"] == "Admin"): ?>
                         <div class="card mb-4 mt-5">
                             <div class="card-body">
 
                             <!-- Category form -->
                             <?php if ($edit_category): ?>
-                                    <!-- Edit category form -->
-                                    <h2 class="card-title">Edit Category</h2>
-                                    <form action="../process/process_category.php" method="post" enctype="multipart/form-data">
-                                        <input type="hidden" name="id" value="<?php echo $edit_category['id']; ?>">
-                                        <div class="form-group">
-                                            <label for="name">Category Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" value="<?php echo $edit_category['name']; ?>" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="image">Category Image</label>
-                                            <input type="file" class="form-control" id="image" name="image">
-                                            <img src="../uploads/categories/<?php echo $edit_category['image']; ?>" alt="Category Image" width="100">
-                                            <small>Upload a new image to replace the existing one.</small>
-                                        </div>
-
-                                        
-                                        <button type="submit" class="btn btn-primary mt-4">Save Changes</button>
-                                        <a href="category.php" class="btn btn-primary mt-4">Cancel</a>
-                                    </form>
-
-                                <?php else: ?>
-                                    <!-- Add new category form -->
-                                    <h2 class="card-title">Add New Category</h2>
-                                    <form action="../process/process_category.php" method="post" enctype="multipart/form-data">
-                                        <div class="form-group">
-                                            <label for="name">New Category Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="image">Category Image</label>
-                                            <input type="file" class="form-control" id="image" name="image">
-                                        </div>
-                                        <button type="submit" class="btn btn-primary mt-4">Add New Category</button>
-                                    </form>
+                                <!-- Edit category form -->
+                                <h2 class="card-title">Edit Category</h2>
+                                <form action="../process/process_category.php" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="id" value="<?php echo $edit_category['id']; ?>">
+                                    <div class="form-group">
+                                        <label for="name">Category Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" value="<?php echo $edit_category['name']; ?>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="slug">Category Slug</label>
+                                        <input type="text" class="form-control" id="slug" name="slug" value="<?php echo $edit_category['slug']; ?>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Category Description</label>
+                                        <textarea class="form-control" id="description" name="description" rows="3"><?php echo $edit_category['description'] ?? ''; ?></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="image">Category Image</label>
+                                        <input type="file" class="form-control" id="image" name="image">
+                                        <img src="../uploads/categories/<?php echo $edit_category['image']; ?>" alt="Category Image" width="100">
+                                        <small>Upload a new image to replace the existing one.</small>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-4">Save Changes</button>
+                                    <a href="category.php" class="btn btn-primary mt-4">Cancel</a>
+                                </form>
+                            
+                            <?php else: ?>
+                                <!-- Add new category form -->
+                                <h2 class="card-title">Add New Category</h2>
+                                <form action="../process/process_category.php" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="name">New Category Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" required onkeyup="generateSlug(this.value)">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="slug">Slug (auto-generated)</label>
+                                        <input type="text" class="form-control" id="slug" name="slug" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Category Description</label>
+                                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="image">Category Image</label>
+                                        <input type="file" class="form-control" id="image" name="image">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-4">Add New Category</button>
+                                </form>
 
                                 <?php endif; ?>
                             </div>
                         </div>
+                    <?php endif; ?>
 
                         <?php
                             if (isset($_SESSION['error_msg'])) {
@@ -127,6 +143,7 @@ include '../include/dashboard_header.php';
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Name</th>
+                                                <th>Slug</th>
                                                 <th>Total Post</th>
                                                 <th>Image</th>
                                                 <th>Action</th>
@@ -137,13 +154,17 @@ include '../include/dashboard_header.php';
                                                 <tr>
                                                     <td><?php echo $category['id']; ?></td>
                                                     <td><?php echo $category['is_default'] == 1 ? $category['name'] . ' (Default Category)' : $category['name']; ?></td>
+                                                    <td><?php echo $category['slug']; ?></td>
                                                     <td><?php echo isset($category['total_posts']) ? $category['total_posts'] : '0'; ?></td>
                                                     <td><img src="../uploads/categories/<?php echo $category['image']; ?>" alt="Category Image" width="50"></td> <!-- Display the image -->
                                                     
                                                     <td>
+                                                    <a href="/category?category=<?php echo $category['slug']; ?>" class="btn btn-success" target="_blank">View</a>
+                                                    <?php if ($_SESSION["user_role"] == "Admin"): ?>
                                                         <a href="category.php?edit_id=<?php echo $category['id']; ?>" class="btn btn-primary">Edit</a>
                                                         <a href="../process/process_category.php?action=delete&id=<?php echo $category['id']; ?>" class="btn btn-danger">Delete</a>
-                                                    </td>
+                                                    <?php endif; ?>
+                                                </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -173,6 +194,11 @@ document.addEventListener('DOMContentLoaded', function() {  // Ensure the DOM is
         }, 5000);
     }
 });
+
+function generateSlug(value) {
+    let slug = value.toLowerCase().trim().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '-');
+    document.getElementById('slug').value = slug;
+}
 </script>
 
 

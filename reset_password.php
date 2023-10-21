@@ -1,12 +1,14 @@
 <?php
 session_start();
-include 'include/header.php'; 
+
 
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
 
+$pageTitle = "Reset Password";
+include 'include/header.php'; 
 ?>
 
 <div class="container mt-5">

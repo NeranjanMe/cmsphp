@@ -34,7 +34,7 @@ $sitelogoPath = '';
 if (isset($_FILES['sitelogo']) && $_FILES['sitelogo']['error'] == 0) {
     // If there's an existing logo, delete it
     if ($currentLogoPath) {
-        @unlink($currentLogoPath);
+        @unlink($uploadDir . $currentLogoPath); // Adjusted to include the upload directory
     }
 
     $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
@@ -54,12 +54,12 @@ if (isset($_FILES['sitelogo']) && $_FILES['sitelogo']['error'] == 0) {
         $destination = $uploadDir . $filename;
         
         if (move_uploaded_file($_FILES['sitelogo']['tmp_name'], $destination)) {
-            $sitelogoPath = $destination;
-        } else {
-            $_SESSION['error_msg'] = 'Error uploading the logo. Try again.';
-            header("Location: ../dashboard/setting-public.php");
-            exit;
-        }
+        $sitelogoPath = $filename;  // Save only the filename, not the full path
+            } else {
+                $_SESSION['error_msg'] = 'Error uploading the logo. Try again.';
+                header("Location: ../dashboard/setting-public.php");
+                exit;
+            }
     } else {
         $_SESSION['error_msg'] = 'Invalid logo file. Please upload a JPG, JPEG, or PNG file not exceeding 2MB.';
         header("Location: ../dashboard/setting-public.php");

@@ -1,6 +1,21 @@
 <?php
 session_start();
-include 'include/header.php'; 
+
+// Connect to the database
+require_once 'database/db_connect.php';
+$db = connect_db();
+
+// Check if an admin already exists
+$stmt = $db->prepare("SELECT id FROM users WHERE role = 'admin'");
+$stmt->execute();
+$adminExists = $stmt->fetch();
+
+if ($adminExists) {
+    // Redirect to another page if an admin already exists
+    header("Location: login"); // Redirect to login page or any other page you prefer
+    exit;
+}
+
 
 if (isset($_SESSION['error'])) {
     $error_message = $_SESSION['error'];
@@ -38,6 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $current_step = isset($_GET['step']) ? (int)$_GET['step'] : ($_SESSION['current_step'] ?? 1);
 $_SESSION['current_step'] = $current_step;
 
+$pageTitle = "Register";
+include 'include/header.php'; 
 ?>
 
 

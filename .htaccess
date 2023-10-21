@@ -11,8 +11,18 @@ RewriteRule ^([^\.]+)$ $1.php [NC,L]
 # Redirect to index.php with the language code
 RewriteRule ^([a-z]{2})/?$ index.php?lang=$1 [L,QSA]
 
-# Handle individual posts with language codes
+# Handle pages first
+RewriteRule ^page/([a-zA-Z0-9\-]+)/?$ page.php?slug=$1 [L,QSA]
+
+
+# Then categories
+RewriteRule ^category/([a-zA-Z0-9\-]+)/?$ category.php?categoryslug=$1 [L,QSA]
+
+
+
+# Then individual posts with language codes
 RewriteRule ^([a-z]{2})/([a-zA-Z0-9\-]+)/?$ post.php?lang=$1&permalink=$2 [L,QSA]
 
-# Handle English (or root without language prefix)
+# And finally, handle English (or root without language prefix) for posts
 RewriteRule ^([a-zA-Z0-9\-]+)/?$ post.php?lang=en&permalink=$1 [L,QSA]
+

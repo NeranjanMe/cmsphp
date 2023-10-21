@@ -17,7 +17,7 @@ if ($result->num_rows > 0) {
         $api_key_delle2 = $row['delle2'];
     }
 } else {
-    echo json_encode(['error' => 'API key for DALL·E not found in database!']);
+    echo json_encode(['error' => 'API key for DALL-E not found in database!']);
     exit;
 }
 

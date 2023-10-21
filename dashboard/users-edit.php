@@ -7,7 +7,11 @@ if(!isset($_SESSION["username"])){
     header("Location: ../login.php");
     exit;
 }
-
+if ($_SESSION['user_role'] !== 'Admin') {
+    $_SESSION['error_msg'] = "You don't have permission to access this page.";
+    header("Location: ../dashboard/index.php");
+    exit;
+}
 $db = connect_db();
 
 // Check if the id is present in the URL, fetch the user

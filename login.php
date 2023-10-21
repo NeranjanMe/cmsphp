@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-$pageTitle = "Login";
-include 'include/header.php'; 
+
 
 if (isset($_SESSION['error'])) {
     $error_message = $_SESSION['error'];
@@ -19,10 +18,11 @@ if (isset($_SESSION['success'])) {
     $success_message = '';
 }
 
-
 unset($_SESSION['step1_data']);
 unset($_SESSION['current_step']);
 
+$pageTitle = "Login";
+include 'include/header.php'; 
 ?>
 
 <div class="container mt-5">

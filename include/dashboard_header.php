@@ -33,7 +33,7 @@ $sitelogo = $siteSettings['sitelogo'];
         
         <!-- Use sitelogo as the favicon -->
         <?php if ($sitelogo): ?>
-            <link rel="icon" href="<?php echo htmlspecialchars($sitelogo); ?>" type="image/x-icon">
+            <link rel="icon" href="../uploads/logos/<?php echo htmlspecialchars($sitelogo); ?>" type="image/x-icon">
         <?php endif; ?>
         
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />

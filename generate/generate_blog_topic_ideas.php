@@ -34,7 +34,7 @@ $headers[] = 'Authorization: Bearer ' . $api_key;
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 $data = json_encode([
-    'prompt' => "Give me blog topics ideas Given Keywords. List dow ideas. with number list. Don't include duplicate. Keyword is " . $keyword,
+    'prompt' => "Give me 10 blog topics ideas Given Keywords. List dow ideas. with number list. Don't include duplicate. Keyword is " . $keyword,
     'max_tokens' => 500
 ]);
 
